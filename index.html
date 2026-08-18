@@ -406,7 +406,8 @@
       border-left: 3px solid var(--orange);
       border-radius: 18px;
       padding: 28px;
-      backdrop-blur: 10px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .panel-label {
       font-size: 10px;
@@ -924,7 +925,8 @@
       inset: 0;
       z-index: 60;
       background: rgba(0,0,0,0.6);
-      backdrop-blur: 4px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       display: none;
       place-items: center;
       padding: 20px;
@@ -1408,6 +1410,7 @@
       initClock();
 
       // Immediately render curated baseline so user sees the rich dashboard without delay
+      let alreadyHadBriefing = !!currentBriefing;
       if (!currentBriefing) {
         const initialData = getFallbackData();
         currentBriefing = initialData;
@@ -1417,8 +1420,10 @@
         setupTTS(initialData);
       }
 
-      // Fetch live AI data in background
-      fetchBriefing();
+      // Fetch live AI data in background. Since a baseline is already on screen,
+      // this runs silently and only re-renders if it actually succeeds - a failed
+      // background fetch should not flash the UI or restart the audio queue.
+      fetchBriefing({ isBackground: !alreadyHadBriefing });
     }
 
     if (accessInput) {
@@ -1503,11 +1508,18 @@
       });
     }
 
-    async function fetchBriefing() {
-      if (lockedText) lockedText.textContent = '실시간 경제 지표 및 정책자금 데이터를 수집·검증 중입니다...';
-      if (locked) locked.classList.add('loading');
-      if (startButton) startButton.disabled = true;
-      if (startButtonLabel) startButtonLabel.textContent = '데이터 수집 중...';
+    async function fetchBriefing(opts) {
+      const isBackground = !!(opts && opts.isBackground);
+
+      // Only show the loading state / disable the button for a user-initiated
+      // (foreground) request. A background sync should be invisible unless it
+      // actually has new data to show.
+      if (!isBackground) {
+        if (lockedText) lockedText.textContent = '실시간 경제 지표 및 정책자금 데이터를 수집·검증 중입니다...';
+        if (locked) locked.classList.add('loading');
+        if (startButton) startButton.disabled = true;
+        if (startButtonLabel) startButtonLabel.textContent = '데이터 수집 중...';
+      }
 
       try {
         const res = await fetch('/api/briefing', {
@@ -1524,16 +1536,23 @@
         setupTTS(data);
       } catch (err) {
         console.warn('Fallback briefing used:', err);
-        const fallbackData = getFallbackData();
-        currentBriefing = fallbackData;
-        renderAll(fallbackData);
-        if (locked) locked.style.display = 'none';
-        if (briefContent) briefContent.classList.add('visible');
-        setupTTS(fallbackData);
+        // Background sync: baseline data is already showing, so don't re-render
+        // or reset the TTS queue - that would flash the UI and could interrupt
+        // audio the user is already listening to.
+        if (!isBackground) {
+          const fallbackData = getFallbackData();
+          currentBriefing = fallbackData;
+          renderAll(fallbackData);
+          if (locked) locked.style.display = 'none';
+          if (briefContent) briefContent.classList.add('visible');
+          setupTTS(fallbackData);
+        }
       } finally {
-        if (startButton) startButton.disabled = false;
-        if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
-        if (locked) locked.classList.remove('loading');
+        if (!isBackground) {
+          if (startButton) startButton.disabled = false;
+          if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
+          if (locked) locked.classList.remove('loading');
+        }
       }
     }
 
@@ -2032,12 +2051,40 @@
       }
     });
 
+    // Compute the D-day count for a given deadline date (KST, inclusive of the
+    // deadline day itself). Returns null if the deadline has already passed or
+    // no date was supplied, so stale/expired items don't display a fake countdown.
+    function daysUntilKST(dateStr) {
+      if (!dateStr) return null;
+      const nowKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const target = new Date(y, m - 1, d, 23, 59, 59);
+      const diff = Math.ceil((target - nowKST) / 86400000);
+      return diff >= 0 ? diff : null;
+    }
+
+    // For recurring "매월 초" (early each month) deadlines: days remaining
+    // until the 1st of next month, calculated live rather than hardcoded.
+    function daysUntilNextMonthKST() {
+      const nowKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      const nextMonthStart = new Date(nowKST.getFullYear(), nowKST.getMonth() + 1, 1);
+      return Math.ceil((nextMonthStart - nowKST) / 86400000);
+    }
+
     // Fallback Data generator
     function getFallbackData() {
       const now = new Date();
       const dateStr = new Intl.DateTimeFormat('ko-KR', {
         timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
       }).format(now);
+
+      // Real calendar deadlines - D-day badges below are derived from these,
+      // never hand-typed, so they stay correct no matter when the page is opened.
+      const exp1DDay = daysUntilKST('2026-08-28');
+      const exp2DDay = daysUntilKST('2026-09-15');
+      const startupNextCycleDDay = daysUntilNextMonthKST();
+      const URGENT_THRESHOLD_DAYS = 14; // "마감임박" badge kicks in inside 2 weeks
+
       return {
         reportDate: dateStr,
         baseRate: "2.75",
@@ -2077,10 +2124,10 @@
             agency: "중소벤처기업진흥공단", 
             budget: "최대 1억원 국비 지원", 
             deadline: "2026.08.28 마감", 
-            dDay: 11, 
+            dDay: exp1DDay, 
             target: "전년도 수출실적 500만불 미만 중소·중견기업", 
             url: "https://www.exportvoucher.com", 
-            urgent: true,
+            urgent: exp1DDay !== null && exp1DDay <= URGENT_THRESHOLD_DAYS,
             keyRequirements: "사업자등록증, 재무제표, 수출실적증명원(무역협회 발급)"
           },
           { 
@@ -2090,10 +2137,10 @@
             agency: "스마트제조혁신추진단", 
             budget: "기초 5천만원 / 고도화 최대 2억원", 
             deadline: "2026.09.15 마감", 
-            dDay: 29, 
+            dDay: exp2DDay, 
             target: "국내 제조 중소·중견기업 (공장등록증 보유)", 
             url: "https://www.smart-factory.kr", 
-            urgent: false,
+            urgent: exp2DDay !== null && exp2DDay <= URGENT_THRESHOLD_DAYS,
             keyRequirements: "공장등록증, 도입기업-공급기업 매칭 사업계획서"
           }
         ],
@@ -2105,10 +2152,10 @@
             agency: "중소벤처기업진흥공단", 
             budget: "운전 최대 5억 / 시설 최대 60억", 
             deadline: "매월 초 온라인 접수", 
-            dDay: 7, 
+            dDay: startupNextCycleDDay, 
             target: "업력 7년 미만 중소기업", 
             url: "https://www.kosmes.or.kr", 
-            urgent: true,
+            urgent: startupNextCycleDDay <= URGENT_THRESHOLD_DAYS,
             keyRequirements: "중진공 포털 사전 회원가입 및 온라인 예약 상담 필수"
           },
           { 
