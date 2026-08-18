@@ -1023,6 +1023,10 @@
           <p class="access-error" id="accessError" role="alert">접속코드가 일치하지 않습니다. 다시 확인해 주세요.</p>
           <button type="submit">브리핑 접속하기 <span>→</span></button>
         </form>
+        <div class="access-helper">
+          <button type="button" class="access-demo-btn" id="demoCodeBtn">체험용 코드 입력 (2221232)</button>
+          <span>● 실시간 데이터 연동 활성</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1357,6 +1361,18 @@
       sessionStorage.setItem('ceo_brief_unlocked', 'true');
       window.scrollTo({ top: 0, behavior: 'instant' });
       initClock();
+
+      // Immediately render curated baseline so user sees the rich dashboard without delay
+      if (!currentBriefing) {
+        const initialData = getFallbackData();
+        currentBriefing = initialData;
+        renderAll(initialData);
+        if (locked) locked.style.display = 'none';
+        if (briefContent) briefContent.classList.add('visible');
+        setupTTS(initialData);
+      }
+
+      // Fetch live AI data in background
       fetchBriefing();
     }
 
@@ -1375,8 +1391,17 @@
     accessForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const code = accessInput.value.trim().replace(/\D/g, '');
+      const submitBtn = accessForm.querySelector('button[type="submit"]');
       if (code === '2221232') {
-        unlockApp();
+        if (submitBtn) {
+          submitBtn.innerHTML = `인증 성공 • 연결 중... <span>✓</span>`;
+        }
+        setTimeout(() => {
+          unlockApp();
+          if (submitBtn) {
+            submitBtn.innerHTML = `브리핑 접속하기 <span>→</span>`;
+          }
+        }, 120);
       } else {
         accessInput.value = '';
         accessInput.classList.add('invalid');
@@ -1411,7 +1436,13 @@
 
     // 3. Fetch Briefing
     if (startButton) {
-      startButton.addEventListener('click', fetchBriefing);
+      startButton.addEventListener('click', () => {
+        const briefingEl = document.getElementById('briefing');
+        if (briefingEl) {
+          briefingEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        fetchBriefing();
+      });
     }
 
     async function fetchBriefing() {
