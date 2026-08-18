@@ -46,6 +46,11 @@
       display: none !important;
     }
 
+    body.unlocked > .access-page,
+    body.unlocked #accessPage {
+      display: none !important;
+    }
+
     /* ---------------- 1. ACCESS GATE ---------------- */
     .access-page {
       min-height: 100vh;
@@ -1351,8 +1356,15 @@
     const aiModal = document.getElementById('aiModal');
 
     // 1. Access Code Gate
+    function unlockApp() {
+      document.body.classList.add('unlocked');
+      sessionStorage.setItem('ceo_brief_unlocked', 'true');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      initClock();
+      fetchBriefing();
+    }
+
     accessInput.addEventListener('input', () => {
-      accessInput.value = accessInput.value.replace(/\D/g, '');
       accessInput.classList.remove('invalid');
       accessError.style.display = 'none';
     });
@@ -1361,15 +1373,14 @@
       accessInput.value = '2221232';
       accessInput.classList.remove('invalid');
       accessError.style.display = 'none';
+      unlockApp();
     });
 
     accessForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (accessInput.value === '2221232') {
-        document.body.classList.add('unlocked');
-        sessionStorage.setItem('ceo_brief_unlocked', 'true');
-        initClock();
-        fetchBriefing();
+      const code = accessInput.value.trim().replace(/\D/g, '');
+      if (code === '2221232') {
+        unlockApp();
       } else {
         accessInput.value = '';
         accessInput.classList.add('invalid');
@@ -1670,14 +1681,13 @@
     });
 
     // 5. Modals Handling
-    // Summary
-    const summaryModal = document.getElementById('summaryModal');
+    // Summary Modal
     document.getElementById('btnOpenSummary').addEventListener('click', () => {
       if (!currentBriefing) return;
       let txt = `[CEO MORNING BRIEF - ${currentBriefing.reportDate || '실시간 브리핑'}]\n`;
       txt += `━━━━━━━━━━━━━━━━━━━━━\n`;
       txt += `■ 핵심 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,388원'}\n\n`;
-      txt += `■ 핵심 포인트\n${currentBriefing.todayPoint}\n\n`;
+      txt += `■ 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
       txt += `■ 주요 정책자금 공고\n`;
       (currentBriefing.exportFunding || []).forEach((f, i) => {
         txt += `${i+1}. ${f.title} (${f.budget}) - ${f.url}\n`;
@@ -1687,26 +1697,57 @@
       });
       txt += `\n* CEO Morning Briefing 제공`;
       document.getElementById('reportTextContent').textContent = txt;
-      summaryModal.classList.add('open');
+      if (summaryModal) summaryModal.classList.add('open');
     });
-    document.getElementById('closeSummaryModal').addEventListener('click', () => summaryModal.classList.remove('open'));
-    document.getElementById('btnCopyReport').addEventListener('click', () => {
-      navigator.clipboard.writeText(document.getElementById('reportTextContent').textContent);
-      alert('경영진 보고서가 클립보드에 복사되었습니다.');
-    });
-    document.getElementById('btnPrintReport').addEventListener('click', () => window.print());
+    
+    const closeSumBtn = document.getElementById('closeSummaryModal');
+    if (closeSumBtn) closeSumBtn.addEventListener('click', () => summaryModal && summaryModal.classList.remove('open'));
+    
+    const copyReportBtn = document.getElementById('btnCopyReport');
+    if (copyReportBtn) {
+      copyReportBtn.addEventListener('click', async () => {
+        const text = document.getElementById('reportTextContent').textContent;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            throw new Error('Clipboard fallback');
+          }
+        } catch (e) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-999999px';
+          textarea.style.top = '-999999px';
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+        const origText = copyReportBtn.textContent;
+        copyReportBtn.textContent = '✓ 복사되었습니다';
+        setTimeout(() => { copyReportBtn.textContent = origText; }, 2000);
+      });
+    }
+
+    const printReportBtn = document.getElementById('btnPrintReport');
+    if (printReportBtn) printReportBtn.addEventListener('click', () => window.print());
 
     // Calc Modal
-    const calcModal = document.getElementById('calcModal');
-    document.getElementById('btnOpenCalc').addEventListener('click', () => calcModal.classList.add('open'));
-    document.getElementById('closeCalcModal').addEventListener('click', () => calcModal.classList.remove('open'));
+    const btnOpenCalc = document.getElementById('btnOpenCalc');
+    if (btnOpenCalc) btnOpenCalc.addEventListener('click', () => calcModal && calcModal.classList.add('open'));
+    const closeCalcBtn = document.getElementById('closeCalcModal');
+    if (closeCalcBtn) closeCalcBtn.addEventListener('click', () => calcModal && calcModal.classList.remove('open'));
 
     // AI Modal
-    const aiModal = document.getElementById('aiModal');
-    const openAi = () => aiModal.classList.add('open');
-    document.getElementById('btnOpenAi').addEventListener('click', openAi);
-    document.getElementById('floatingAiBtn').addEventListener('click', openAi);
-    document.getElementById('closeAiModal').addEventListener('click', () => aiModal.classList.remove('open'));
+    const openAi = () => aiModal && aiModal.classList.add('open');
+    const btnOpenAi = document.getElementById('btnOpenAi');
+    if (btnOpenAi) btnOpenAi.addEventListener('click', openAi);
+    const floatingAiBtn = document.getElementById('floatingAiBtn');
+    if (floatingAiBtn) floatingAiBtn.addEventListener('click', openAi);
+    const closeAiBtn = document.getElementById('closeAiModal');
+    if (closeAiBtn) closeAiBtn.addEventListener('click', () => aiModal && aiModal.classList.remove('open'));
 
     window.askAboutFund = function(title) {
       document.getElementById('aiInput').value = `[${title}] 우리 회사가 이 정책자금을 신청할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
@@ -1816,9 +1857,7 @@
 
     // Auto Unlock from existing session (Executed last after all elements & functions are loaded)
     if (sessionStorage.getItem('ceo_brief_unlocked') === 'true') {
-      document.body.classList.add('unlocked');
-      initClock();
-      fetchBriefing();
+      unlockApp();
     }
   </script>
 </body>
