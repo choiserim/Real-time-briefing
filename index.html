@@ -21,7 +21,7 @@
       --paper-card: #ffffff;
       --line: #d9d6ce;
       --line-subtle: #e8e5dc;
-      --text-muted: #6b6c6d;
+      --text-muted: #64748b;
       --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-serif: 'Noto Serif KR', Georgia, serif;
     }
@@ -169,6 +169,12 @@
     .access-form input.invalid {
       border-color: #ef4444;
       background: #fef2f2;
+      animation: shake 0.3s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
     }
     .access-error {
       display: none;
@@ -392,6 +398,7 @@
       border-radius: 50%;
       background: #4bd18a;
       box-shadow: 0 0 10px #4bd18a;
+      display: inline-block;
     }
     .hero-panel {
       background: rgba(255, 255, 255, 0.05);
@@ -645,20 +652,32 @@
       border: 1px solid var(--line);
       border-radius: 10px;
       background: #fff;
-      padding: 0 14px 0 36px;
+      padding: 0 32px 0 36px;
       font-size: 12px;
       outline: none;
     }
     .search-box input:focus {
       border-color: var(--navy);
     }
-    .search-box span {
+    .search-box span.search-icon {
       position: absolute;
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
       font-size: 14px;
       color: #94a3b8;
+    }
+    .search-box button.clear-search {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 0;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
     }
 
     /* Section & Cards */
@@ -758,7 +777,7 @@
       background: none;
       color: #94a3b8;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       padding: 4px;
       transition: 0.15s;
     }
@@ -800,6 +819,15 @@
     .meta-row span { color: #64748b; }
     .meta-row strong { color: var(--navy); }
     .meta-full { grid-column: span 2; }
+    .key-req-box {
+      margin-top: 10px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #166534;
+    }
     .card-actions {
       margin-top: 16px;
       padding-top: 14px;
@@ -885,6 +913,9 @@
       border-radius: 6px;
       font-size: 11px;
       font-weight: 600;
+    }
+    .source-tag a:hover {
+      color: var(--orange);
     }
 
     /* ---------------- 6. MODALS & DRAWERS ---------------- */
@@ -1021,7 +1052,7 @@
           <label for="accessCode">접속코드 (PIN)</label>
           <input id="accessCode" type="password" inputmode="numeric" autocomplete="off" placeholder="접속코드를 입력하세요" autofocus>
           <p class="access-error" id="accessError" role="alert">접속코드가 일치하지 않습니다. 다시 확인해 주세요.</p>
-          <button type="submit">브리핑 접속하기 <span>→</span></button>
+          <button type="submit" id="submitAccessBtn">브리핑 접속하기 <span>→</span></button>
         </form>
         <div class="access-helper">
           <button type="button" class="access-demo-btn" id="demoCodeBtn">체험용 코드 입력 (2221232)</button>
@@ -1048,7 +1079,7 @@
         <b id="topBaseRate">2.75%</b>
         <span style="opacity:0.4">|</span>
         <span>환율</span>
-        <b id="topExchangeRate">1,388원</b>
+        <b id="topExchangeRate">1,388.50원</b>
       </div>
     </div>
     <div class="top-actions">
@@ -1087,7 +1118,7 @@
             </div>
             <div class="stat-box">
               <small>원/달러 환율</small>
-              <div class="num" id="exchangeRateNumber">1,388<span>원</span></div>
+              <div class="num" id="exchangeRateNumber">1,388.50<span>원</span></div>
             </div>
           </div>
           <div class="panel-divider"></div>
@@ -1148,8 +1179,9 @@
             <button class="tab-btn" data-tab="BOOKMARKS">⭐ 스크랩 (<span id="bookmarkCount">0</span>)</button>
           </div>
           <div class="search-box">
-            <span>🔍</span>
+            <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="공고명, 지원대상, 키워드 검색...">
+            <button type="button" class="clear-search" id="clearSearchBtn">✕</button>
           </div>
         </div>
 
@@ -1199,12 +1231,12 @@
         </div>
 
         <!-- Verification Source -->
-        <div class="source-box">
+        <div class="source-box" id="sourceBox">
           <strong>출처 검증:</strong>
-          <span class="source-tag">한국은행 ECOS</span>
-          <span class="source-tag">중소벤처기업부</span>
-          <span class="source-tag">중소벤처기업진흥공단</span>
-          <span class="source-tag">기업마당 (Bizinfo)</span>
+          <span class="source-tag"><a href="https://ecos.bok.or.kr" target="_blank" rel="noreferrer">한국은행 ECOS ↗</a></span>
+          <span class="source-tag"><a href="https://www.mss.go.kr" target="_blank" rel="noreferrer">중소벤처기업부 ↗</a></span>
+          <span class="source-tag"><a href="https://www.kosmes.or.kr" target="_blank" rel="noreferrer">중소벤처기업진흥공단 ↗</a></span>
+          <span class="source-tag"><a href="https://www.bizinfo.go.kr" target="_blank" rel="noreferrer">기업마당 (Bizinfo) ↗</a></span>
         </div>
       </div>
     </section>
@@ -1246,17 +1278,18 @@
         <div style="display:flex; flex-direction:column; gap:14px; font-size:13px;">
           <div>
             <label style="font-weight:700; display:block; margin-bottom:6px;">1. 주력 업종</label>
-            <select id="calcIndustry" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1;">
+            <select id="calcIndustry" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
               <option value="mfg">제조업 (공장보유/뿌리/첨단)</option>
               <option value="it">IT / 소프트웨어 / AI</option>
-              <option value="trade">도소매 / 무역</option>
-              <option value="service">기타 지식서비스업</option>
+              <option value="trade">도소매 / 유통 / 무역</option>
+              <option value="service">전문·지식서비스업</option>
+              <option value="bio">바이오 / 헬스케어</option>
             </select>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div>
               <label style="font-weight:700; display:block; margin-bottom:6px;">2. 업력</label>
-              <select id="calcAge" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1;">
+              <select id="calcAge" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
                 <option value="under3">3년 미만 (초기창업)</option>
                 <option value="under7">3~7년 (도약기)</option>
                 <option value="over7">7년 초과 (성숙기)</option>
@@ -1264,7 +1297,7 @@
             </div>
             <div>
               <label style="font-weight:700; display:block; margin-bottom:6px;">3. 연매출</label>
-              <select id="calcRevenue" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1;">
+              <select id="calcRevenue" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
                 <option value="under10">10억원 미만</option>
                 <option value="10to50">10억 ~ 50억원</option>
                 <option value="over50">50억원 초과</option>
@@ -1273,18 +1306,21 @@
           </div>
           <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; display:flex; flex-direction:column; gap:8px;">
             <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="calcExport" checked> 수출 실적 보유 또는 희망
+              <input type="checkbox" id="calcExport" checked> 수출 실적 보유 또는 직간접 수출 희망
             </label>
             <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="calcPatent" checked> 특허 / 기업부설연구소 보유
+              <input type="checkbox" id="calcPatent" checked> 등록 특허 / 기업부설연구소 / 벤처인증 보유
             </label>
           </div>
           <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; padding:14px; border-radius:10px;" id="calcResultBox">
-            <strong>추천 3대 정책자금:</strong>
-            <ul style="margin:6px 0 0 16px; line-height:1.6;" id="calcRecList">
-              <li>중진공 혁신창업/운전자금 (연 2%대 저금리)</li>
-              <li>중기부 수출바우처 (최대 1억원 국비 지원)</li>
-              <li>스마트공장 구축 및 고도화 지원사업 (국비 50%)</li>
+            <strong style="display:flex; justify-content:space-between; align-items:center;">
+              <span>🎯 추천 3대 정책자금:</span>
+              <button type="button" id="btnConsultCalcAi" style="background:#166534; color:#fff; border:0; padding:4px 8px; border-radius:6px; font-size:11px; cursor:pointer;">AI 심층 분석 →</button>
+            </strong>
+            <ul style="margin:8px 0 0 16px; line-height:1.6;" id="calcRecList">
+              <li>중진공 혁신창업/운전자금 (연 2%대 저금리 직접융자)</li>
+              <li>중기부 수출바우처 (최대 1억원 국비 바우처 지원)</li>
+              <li>스마트공장 구축 및 고도화 지원사업 (국비 최대 50%)</li>
             </ul>
           </div>
         </div>
@@ -1301,13 +1337,19 @@
       </div>
       <div class="modal-body">
         <div id="aiChatArea" style="min-height:220px; max-height:340px; overflow-y:auto; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; font-size:13px; margin-bottom:12px; display:flex; flex-direction:column; gap:10px;">
-          <div style="background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:10px;">
-            안녕하십니까 대표님, AI 수석 정책자금 자문위원입니다. 궁금하신 지원사업의 신청 자격 및 통과 전략을 질문해 주세요.
+          <div style="background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:10px; line-height:1.6;">
+            안녕하십니까 대표님, <strong>CEO AI 정책자금 수석 자문관</strong>입니다. 궁금하신 지원사업의 심사 기준, 필수 구비 서류, 가점 획득 전략을 질의해 주시면 즉시 실무 관점에서 답변해 드립니다.
           </div>
         </div>
         <div style="display:flex; gap:8px;">
           <input type="text" id="aiInput" placeholder="예: 매출 30억 제조업체 스마트공장 자금 자격 요건은?" style="flex:1; height:44px; border:1px solid #cbd5e1; border-radius:10px; padding:0 14px; font-size:13px; outline:none;">
           <button id="btnSendAi" style="background:var(--navy); color:#fff; border:0; padding:0 18px; border-radius:10px; font-weight:700; cursor:pointer;">전송</button>
+        </div>
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:6px;">
+          <span style="font-size:11px; color:#64748b;">추천 질문:</span>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('수출바우처 가점 항목과 필수 증빙 서류는?')">수출바우처 가점</button>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('중진공 정책자금 탈락 시 재신청 제한 기간과 통과 전략은?')">중진공 통과 전략</button>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('신용보증기금과 기술보증기금 중 제조업에 더 유리한 곳은?')">신보 vs 기보</button>
         </div>
       </div>
     </div>
@@ -1351,6 +1393,9 @@
     const audioProgress = document.getElementById('audioProgress');
     const audioProgressBar = document.getElementById('audioProgressBar');
 
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+
     const summaryModal = document.getElementById('summaryModal');
     const calcModal = document.getElementById('calcModal');
     const aiModal = document.getElementById('aiModal');
@@ -1376,46 +1421,59 @@
       fetchBriefing();
     }
 
-    accessInput.addEventListener('input', () => {
-      accessInput.classList.remove('invalid');
-      accessError.style.display = 'none';
-    });
+    if (accessInput) {
+      accessInput.addEventListener('input', () => {
+        accessInput.classList.remove('invalid');
+        if (accessError) accessError.style.display = 'none';
+      });
+    }
 
-    demoCodeBtn.addEventListener('click', () => {
-      accessInput.value = '2221232';
-      accessInput.classList.remove('invalid');
-      accessError.style.display = 'none';
-      unlockApp();
-    });
-
-    accessForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const code = accessInput.value.trim().replace(/\D/g, '');
-      const submitBtn = accessForm.querySelector('button[type="submit"]');
-      if (code === '2221232') {
-        if (submitBtn) {
-          submitBtn.innerHTML = `인증 성공 • 연결 중... <span>✓</span>`;
+    if (demoCodeBtn) {
+      demoCodeBtn.addEventListener('click', () => {
+        if (accessInput) {
+          accessInput.value = '2221232';
+          accessInput.classList.remove('invalid');
         }
-        setTimeout(() => {
-          unlockApp();
+        if (accessError) accessError.style.display = 'none';
+        unlockApp();
+      });
+    }
+
+    if (accessForm) {
+      accessForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const code = accessInput ? accessInput.value.trim().replace(/\D/g, '') : '';
+        const submitBtn = document.getElementById('submitAccessBtn');
+        if (code === '2221232') {
           if (submitBtn) {
-            submitBtn.innerHTML = `브리핑 접속하기 <span>→</span>`;
+            submitBtn.innerHTML = `인증 성공 • 연결 중... <span>✓</span>`;
           }
-        }, 120);
-      } else {
-        accessInput.value = '';
-        accessInput.classList.add('invalid');
-        accessError.style.display = 'block';
-        accessInput.focus();
-      }
-    });
+          setTimeout(() => {
+            unlockApp();
+            if (submitBtn) {
+              submitBtn.innerHTML = `브리핑 접속하기 <span>→</span>`;
+            }
+          }, 120);
+        } else {
+          if (accessInput) {
+            accessInput.value = '';
+            accessInput.classList.add('invalid');
+            accessInput.focus();
+          }
+          if (accessError) accessError.style.display = 'block';
+        }
+      });
+    }
 
-    document.getElementById('btnLock').addEventListener('click', () => {
-      sessionStorage.removeItem('ceo_brief_unlocked');
-      window.location.reload();
-    });
+    const btnLock = document.getElementById('btnLock');
+    if (btnLock) {
+      btnLock.addEventListener('click', () => {
+        sessionStorage.removeItem('ceo_brief_unlocked');
+        window.location.reload();
+      });
+    }
 
-    // 2. Real-time Clock
+    // 2. Real-time Clock (Asia/Seoul KST)
     function initClock() {
       const update = () => {
         const now = new Date();
@@ -1446,10 +1504,10 @@
     }
 
     async function fetchBriefing() {
-      lockedText.textContent = '실시간 경제 지표 및 정책자금 데이터를 수집·검증 중입니다...';
-      locked.classList.add('loading');
-      startButton.disabled = true;
-      startButtonLabel.textContent = '데이터 수집 중...';
+      if (lockedText) lockedText.textContent = '실시간 경제 지표 및 정책자금 데이터를 수집·검증 중입니다...';
+      if (locked) locked.classList.add('loading');
+      if (startButton) startButton.disabled = true;
+      if (startButtonLabel) startButtonLabel.textContent = '데이터 수집 중...';
 
       try {
         const res = await fetch('/api/briefing', {
@@ -1461,33 +1519,48 @@
         currentBriefing = data;
         renderAll(data);
 
-        locked.style.display = 'none';
-        briefContent.classList.add('visible');
+        if (locked) locked.style.display = 'none';
+        if (briefContent) briefContent.classList.add('visible');
         setupTTS(data);
       } catch (err) {
-        console.warn('Fallback briefing:', err);
-        // Fallback curated
+        console.warn('Fallback briefing used:', err);
         const fallbackData = getFallbackData();
         currentBriefing = fallbackData;
         renderAll(fallbackData);
-        locked.style.display = 'none';
-        briefContent.classList.add('visible');
+        if (locked) locked.style.display = 'none';
+        if (briefContent) briefContent.classList.add('visible');
         setupTTS(fallbackData);
       } finally {
-        startButton.disabled = false;
-        startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
-        locked.classList.remove('loading');
+        if (startButton) startButton.disabled = false;
+        if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
+        if (locked) locked.classList.remove('loading');
       }
     }
 
     function renderAll(b) {
-      document.getElementById('briefTitle').textContent = `📅 ${b.reportDate || '오늘자'} 경제·정책자금 브리핑`;
-      document.getElementById('baseRateNumber').innerHTML = `${b.baseRate || '2.75'}<span>%</span>`;
-      document.getElementById('exchangeRateNumber').innerHTML = `${b.exchangeRate ? b.exchangeRate.replace('원','') : '1,388'}<span>원</span>`;
-      document.getElementById('topBaseRate').textContent = `${b.baseRate || '2.75'}%`;
-      document.getElementById('topExchangeRate').textContent = `${b.exchangeRate || '1,388원'}`;
-      document.getElementById('panelHeadline').innerHTML = b.panelHeadline || '수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수';
-      document.getElementById('todayPointText').textContent = b.todayPoint || '';
+      const briefTitle = document.getElementById('briefTitle');
+      if (briefTitle) briefTitle.textContent = `📅 ${b.reportDate || '오늘자'} 경제·정책자금 브리핑`;
+      
+      const baseRateEl = document.getElementById('baseRateNumber');
+      if (baseRateEl) baseRateEl.innerHTML = `${b.baseRate || '2.75'}<span>%</span>`;
+      
+      const exRateEl = document.getElementById('exchangeRateNumber');
+      if (exRateEl) {
+        const cleanRate = b.exchangeRate ? b.exchangeRate.replace('원','').trim() : '1,388.50';
+        exRateEl.innerHTML = `${cleanRate}<span>원</span>`;
+      }
+
+      const topBaseEl = document.getElementById('topBaseRate');
+      if (topBaseEl) topBaseEl.textContent = `${b.baseRate || '2.75'}%`;
+
+      const topExEl = document.getElementById('topExchangeRate');
+      if (topExEl) topExEl.textContent = `${b.exchangeRate || '1,388.50원'}`;
+
+      const panelHeadline = document.getElementById('panelHeadline');
+      if (panelHeadline) panelHeadline.innerHTML = b.panelHeadline || '수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수';
+
+      const pointText = document.getElementById('todayPointText');
+      if (pointText) pointText.textContent = b.todayPoint || '';
 
       renderSections();
       updateBookmarkCount();
@@ -1495,68 +1568,80 @@
 
     function renderSections() {
       if (!currentBriefing) return;
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const q = (searchInput?.value || '').toLowerCase().trim();
 
       const match = (item) => {
         if (!q) return true;
-        return (item.title + ' ' + (item.desc || '') + ' ' + (item.target || '') + ' ' + (item.agency || '')).toLowerCase().includes(q);
+        return (
+          (item.title || '') + ' ' + 
+          (item.desc || '') + ' ' + 
+          (item.target || '') + ' ' + 
+          (item.agency || '') + ' ' +
+          (item.keyRequirements || '')
+        ).toLowerCase().includes(q);
       };
 
       // Macro
       const macroBox = document.getElementById('macroNewsItems');
       const macroSec = document.getElementById('secMacro');
-      if (currentTab === 'ALL' || currentTab === 'MACRO') {
-        macroSec.style.display = 'grid';
-        const filtered = (currentBriefing.macroNews || []).filter(match);
-        macroBox.innerHTML = filtered.map(item => `
-          <div class="card-item">
-            <div class="card-top">
-              <span class="badge-agency">${item.tag || '거시경제'}</span>
-              <span style="font-size:11px; color:#64748b;">${item.source}</span>
+      if (macroSec && macroBox) {
+        if (currentTab === 'ALL' || currentTab === 'MACRO') {
+          macroSec.style.display = 'grid';
+          const filtered = (currentBriefing.macroNews || []).filter(match);
+          macroBox.innerHTML = filtered.map(item => `
+            <div class="card-item">
+              <div class="card-top">
+                <span class="badge-agency">${item.tag || '거시경제'}</span>
+                <span style="font-size:11px; color:#64748b;">${item.source || '공식 통계'}</span>
+              </div>
+              <h4><a href="${item.url || '#'}" target="_blank" rel="noreferrer">${item.title} ↗</a></h4>
+              <p>${item.desc || ''}</p>
+              ${item.impact ? `<div style="margin-top:10px; background:#fffbeb; border:1px solid #fef3c7; padding:8px 12px; border-radius:8px; font-size:12px; color:#92400e;">💡 <strong>실무 영향:</strong> ${item.impact}</div>` : ''}
             </div>
-            <h4><a href="${item.url}" target="_blank" rel="noreferrer">${item.title} ↗</a></h4>
-            <p>${item.desc}</p>
-            ${item.impact ? `<div style="margin-top:10px; background:#fffbeb; border:1px solid #fef3c7; padding:8px 12px; border-radius:8px; font-size:12px; color:#92400e;">💡 <strong>실무 영향:</strong> ${item.impact}</div>` : ''}
-          </div>
-        `).join('');
-      } else {
-        macroSec.style.display = 'none';
+          `).join('');
+        } else {
+          macroSec.style.display = 'none';
+        }
       }
 
       // Export
       const expBox = document.getElementById('exportFundingItems');
       const expSec = document.getElementById('secExport');
-      if (currentTab === 'ALL' || currentTab === 'EXPORT' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
-        let list = (currentBriefing.exportFunding || []);
-        if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
-        if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'EXPORT');
-        const filtered = list.filter(match);
-        if (filtered.length > 0) {
-          expSec.style.display = 'grid';
-          expBox.innerHTML = filtered.map(renderFundingCard).join('');
+      if (expSec && expBox) {
+        if (currentTab === 'ALL' || currentTab === 'EXPORT' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
+          let list = (currentBriefing.exportFunding || []);
+          if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
+          if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'EXPORT');
+          const filtered = list.filter(match);
+          if (filtered.length > 0) {
+            expSec.style.display = 'grid';
+            expBox.innerHTML = filtered.map(renderFundingCard).join('');
+          } else {
+            expSec.style.display = 'none';
+          }
         } else {
           expSec.style.display = 'none';
         }
-      } else {
-        expSec.style.display = 'none';
       }
 
       // Startup
       const startBox = document.getElementById('startupFundingItems');
       const startSec = document.getElementById('secStartup');
-      if (currentTab === 'ALL' || currentTab === 'STARTUP' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
-        let list = (currentBriefing.startupFunding || []);
-        if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
-        if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'STARTUP');
-        const filtered = list.filter(match);
-        if (filtered.length > 0) {
-          startSec.style.display = 'grid';
-          startBox.innerHTML = filtered.map(renderFundingCard).join('');
+      if (startSec && startBox) {
+        if (currentTab === 'ALL' || currentTab === 'STARTUP' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
+          let list = (currentBriefing.startupFunding || []);
+          if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
+          if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'STARTUP');
+          const filtered = list.filter(match);
+          if (filtered.length > 0) {
+            startSec.style.display = 'grid';
+            startBox.innerHTML = filtered.map(renderFundingCard).join('');
+          } else {
+            startSec.style.display = 'none';
+          }
         } else {
           startSec.style.display = 'none';
         }
-      } else {
-        startSec.style.display = 'none';
       }
     }
 
@@ -1567,20 +1652,25 @@
           <div class="card-top">
             <div style="display:flex; align-items:center; gap:6px;">
               ${item.urgent ? '<span class="badge-urgent">마감임박</span>' : ''}
-              ${item.dDay ? `<span class="badge-dday">D-${item.dDay}</span>` : ''}
+              ${item.dDay !== undefined && item.dDay !== null ? `<span class="badge-dday">D-${item.dDay}</span>` : ''}
               <span class="badge-agency">${item.agency || '주관기관'}</span>
             </div>
-            <button class="btn-bookmark ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${item.id}')">${isBookmarked ? '★' : '☆'}</button>
+            <button class="btn-bookmark ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${item.id}')" title="스크랩 저장">${isBookmarked ? '★' : '☆'}</button>
           </div>
-          <h4><a href="${item.url}" target="_blank" rel="noreferrer">${item.title}</a></h4>
-          <p>${item.desc}</p>
+          <h4><a href="${item.url || '#'}" target="_blank" rel="noreferrer">${item.title}</a></h4>
+          <p>${item.desc || ''}</p>
           <div class="meta-matrix">
             <div class="meta-row"><span>지원규모:</span> <strong>${item.budget || '–'}</strong></div>
             <div class="meta-row"><span>마감기한:</span> <strong>${item.deadline || '–'}</strong></div>
             <div class="meta-row meta-full"><span>지원대상:</span> <strong>${item.target || '–'}</strong></div>
           </div>
+          ${item.keyRequirements ? `
+            <div class="key-req-box">
+              📋 <strong>필수 준비 서류 / 심사 기준:</strong> ${item.keyRequirements}
+            </div>
+          ` : ''}
           <div class="card-actions">
-            <a class="link-direct" href="${item.url}" target="_blank" rel="noreferrer">공식 공고 및 신청 바로가기 ↗</a>
+            <a class="link-direct" href="${item.url || '#'}" target="_blank" rel="noreferrer">공식 공고 및 신청 바로가기 ↗</a>
             <button class="btn-card-ai" onclick="askAboutFund('${item.title}')">✨ AI 자문 질의</button>
           </div>
         </div>
@@ -1608,7 +1698,8 @@
     };
 
     function updateBookmarkCount() {
-      document.getElementById('bookmarkCount').textContent = bookmarks.length;
+      const bEl = document.getElementById('bookmarkCount');
+      if (bEl) bEl.textContent = bookmarks.length;
     }
 
     // Filter Tabs
@@ -1621,13 +1712,29 @@
       });
     });
 
-    document.getElementById('searchInput').addEventListener('input', renderSections);
+    // Search Box Listener
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        if (clearSearchBtn) {
+          clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+        }
+        renderSections();
+      });
+    }
+
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        renderSections();
+      });
+    }
 
     // 4. TTS Audio Player
     function setupTTS(b) {
       ttsQueue = [
         `대표님을 위한 ${b.reportDate || '오늘자'} 실시간 경영 브리핑입니다.`,
-        `한국은행 기준금리는 ${b.baseRate || '2.75'} 퍼센트이며, 원 달러 환율은 ${b.exchangeRate || '1388원'} 수준입니다.`,
+        `한국은행 기준금리는 ${b.baseRate || '2.75'} 퍼센트이며, 원 달러 환율은 ${b.exchangeRate || '1388.50원'} 수준입니다.`,
         `오늘의 핵심 포인트입니다. ${b.todayPoint || ''}`
       ];
       (b.macroNews || []).forEach((n, idx) => {
@@ -1671,61 +1778,72 @@
     function speakNext(idx) {
       if (!window.speechSynthesis || idx >= ttsQueue.length) {
         isPlayingAudio = false;
-        btnAudioToggle.textContent = '▶ 다시 청취';
-        audioStatusText.textContent = '낭독이 완료되었습니다.';
-        audioProgressBar.style.width = '100%';
+        if (btnAudioToggle) btnAudioToggle.textContent = '▶ 다시 청취';
+        if (audioStatusText) audioStatusText.textContent = '낭독이 완료되었습니다.';
+        if (audioProgressBar) audioProgressBar.style.width = '100%';
         ttsIndex = 0;
         return;
       }
       ttsIndex = idx;
       window.speechSynthesis.cancel();
-      audioStatusText.textContent = ttsQueue[idx];
-      audioProgressBar.style.width = `${((idx + 1) / ttsQueue.length) * 100}%`;
+      if (audioStatusText) audioStatusText.textContent = ttsQueue[idx];
+      if (audioProgressBar) audioProgressBar.style.width = `${((idx + 1) / ttsQueue.length) * 100}%`;
 
       const utter = new SpeechSynthesisUtterance(ttsQueue[idx]);
       utter.lang = 'ko-KR';
       utter.rate = ttsRate;
       utter.onend = () => speakNext(idx + 1);
-      utter.onerror = () => { isPlayingAudio = false; btnAudioToggle.textContent = '▶ 브리핑 청취'; };
+      utter.onerror = () => { 
+        isPlayingAudio = false; 
+        if (btnAudioToggle) btnAudioToggle.textContent = '▶ 브리핑 청취'; 
+      };
       window.speechSynthesis.speak(utter);
     }
 
-    btnAudioRestart.addEventListener('click', () => {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      isPlayingAudio = true;
-      btnAudioToggle.textContent = '⏸ 일시정지';
-      audioProgress.style.display = 'block';
-      speakNext(0);
-    });
+    if (btnAudioRestart) {
+      btnAudioRestart.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        isPlayingAudio = true;
+        if (btnAudioToggle) btnAudioToggle.textContent = '⏸ 일시정지';
+        if (audioProgress) audioProgress.style.display = 'block';
+        speakNext(0);
+      });
+    }
 
-    btnAudioRate.addEventListener('click', () => {
-      const rates = [1.0, 1.2, 1.5];
-      const next = rates[(rates.indexOf(ttsRate) + 1) % rates.length];
-      ttsRate = next;
-      btnAudioRate.textContent = `${next}x`;
-      if (isPlayingAudio) speakNext(ttsIndex);
-    });
+    if (btnAudioRate) {
+      btnAudioRate.addEventListener('click', () => {
+        const rates = [1.0, 1.2, 1.5, 2.0];
+        const next = rates[(rates.indexOf(ttsRate) + 1) % rates.length];
+        ttsRate = next;
+        btnAudioRate.textContent = `${next}x`;
+        if (isPlayingAudio) speakNext(ttsIndex);
+      });
+    }
 
     // 5. Modals Handling
     // Summary Modal
-    document.getElementById('btnOpenSummary').addEventListener('click', () => {
-      if (!currentBriefing) return;
-      let txt = `[CEO MORNING BRIEF - ${currentBriefing.reportDate || '실시간 브리핑'}]\n`;
-      txt += `━━━━━━━━━━━━━━━━━━━━━\n`;
-      txt += `■ 핵심 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,388원'}\n\n`;
-      txt += `■ 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
-      txt += `■ 주요 정책자금 공고\n`;
-      (currentBriefing.exportFunding || []).forEach((f, i) => {
-        txt += `${i+1}. ${f.title} (${f.budget}) - ${f.url}\n`;
+    const btnOpenSummary = document.getElementById('btnOpenSummary');
+    if (btnOpenSummary) {
+      btnOpenSummary.addEventListener('click', () => {
+        if (!currentBriefing) return;
+        let txt = `[CEO MORNING BRIEF - ${currentBriefing.reportDate || '실시간 브리핑'}]\n`;
+        txt += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        txt += `■ 핵심 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,388.50원'}\n\n`;
+        txt += `■ 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
+        txt += `■ 주요 정책자금 공고\n`;
+        (currentBriefing.exportFunding || []).forEach((f, i) => {
+          txt += `${i+1}. [수출·제조] ${f.title} (${f.budget}) - ${f.url}\n`;
+        });
+        (currentBriefing.startupFunding || []).forEach((f, i) => {
+          txt += `${i+1}. [스타트업·중기] ${f.title} (${f.budget}) - ${f.url}\n`;
+        });
+        txt += `\n* CEO Morning Briefing 제공`;
+        const repBox = document.getElementById('reportTextContent');
+        if (repBox) repBox.textContent = txt;
+        if (summaryModal) summaryModal.classList.add('open');
       });
-      (currentBriefing.startupFunding || []).forEach((f, i) => {
-        txt += `${i+1}. ${f.title} (${f.budget}) - ${f.url}\n`;
-      });
-      txt += `\n* CEO Morning Briefing 제공`;
-      document.getElementById('reportTextContent').textContent = txt;
-      if (summaryModal) summaryModal.classList.add('open');
-    });
+    }
     
     const closeSumBtn = document.getElementById('closeSummaryModal');
     if (closeSumBtn) closeSumBtn.addEventListener('click', () => summaryModal && summaryModal.classList.remove('open'));
@@ -1733,7 +1851,7 @@
     const copyReportBtn = document.getElementById('btnCopyReport');
     if (copyReportBtn) {
       copyReportBtn.addEventListener('click', async () => {
-        const text = document.getElementById('reportTextContent').textContent;
+        const text = document.getElementById('reportTextContent')?.textContent || '';
         try {
           if (navigator.clipboard && window.isSecureContext) {
             await navigator.clipboard.writeText(text);
@@ -1763,7 +1881,12 @@
 
     // Calc Modal
     const btnOpenCalc = document.getElementById('btnOpenCalc');
-    if (btnOpenCalc) btnOpenCalc.addEventListener('click', () => calcModal && calcModal.classList.add('open'));
+    if (btnOpenCalc) {
+      btnOpenCalc.addEventListener('click', () => {
+        updateCalcResults();
+        if (calcModal) calcModal.classList.add('open');
+      });
+    }
     const closeCalcBtn = document.getElementById('closeCalcModal');
     if (closeCalcBtn) closeCalcBtn.addEventListener('click', () => calcModal && calcModal.classList.remove('open'));
 
@@ -1777,39 +1900,81 @@
     if (closeAiBtn) closeAiBtn.addEventListener('click', () => aiModal && aiModal.classList.remove('open'));
 
     window.askAboutFund = function(title) {
-      document.getElementById('aiInput').value = `[${title}] 우리 회사가 이 정책자금을 신청할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
+      const aiInp = document.getElementById('aiInput');
+      if (aiInp) aiInp.value = `[${title}] 우리 회사가 이 정책자금을 신청할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
       openAi();
     };
 
-    document.getElementById('btnSendAi').addEventListener('click', async () => {
-      const inp = document.getElementById('aiInput');
-      const q = inp.value.trim();
-      if (!q) return;
-
-      const chat = document.getElementById('aiChatArea');
-      chat.innerHTML += `<div style="align-self:flex-end; background:var(--orange); color:#fff; padding:8px 12px; border-radius:10px; max-width:80%;">${q}</div>`;
-      inp.value = '';
-
-      const loadingMsg = document.createElement('div');
-      loadingMsg.textContent = 'AI 수석 자문위원이 분석 중입니다...';
-      loadingMsg.style.cssText = 'background:#fff; border:1px solid #cbd5e1; padding:8px 12px; border-radius:10px; max-width:80%; font-size:12px; color:#64748b;';
-      chat.appendChild(loadingMsg);
-      chat.scrollTop = chat.scrollHeight;
-
-      try {
-        const res = await fetch('/api/consult', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: q })
-        });
-        const data = await res.json();
-        loadingMsg.innerHTML = (data.answer || '답변을 불러오지 못했습니다.').replace(/\n/g, '<br>');
-        loadingMsg.style.color = 'var(--ink)';
-      } catch (err) {
-        loadingMsg.textContent = '자문 응답 생성 중 오류가 발생했습니다. 중진공(1357) 또는 신보(1588-6565) 상담을 권장합니다.';
+    window.setAiQuestion = function(q) {
+      const aiInp = document.getElementById('aiInput');
+      if (aiInp) {
+        aiInp.value = q;
+        document.getElementById('btnSendAi')?.click();
       }
-      chat.scrollTop = chat.scrollHeight;
-    });
+    };
+
+    const btnConsultCalcAi = document.getElementById('btnConsultCalcAi');
+    if (btnConsultCalcAi) {
+      btnConsultCalcAi.addEventListener('click', () => {
+        const ind = document.getElementById('calcIndustry')?.selectedOptions[0]?.text || '';
+        const age = document.getElementById('calcAge')?.selectedOptions[0]?.text || '';
+        const rev = document.getElementById('calcRevenue')?.selectedOptions[0]?.text || '';
+        const exp = document.getElementById('calcExport')?.checked ? '수출실적/희망 있음' : '내수 위주';
+        const pat = document.getElementById('calcPatent')?.checked ? '특허/연구소 보유' : '특허 없음';
+
+        const q = `우리 기업은 업종: [${ind}], 업력: [${age}], 연매출: [${rev}], ${exp}, ${pat} 상태입니다. 올해 하반기 및 내년 상반기에 가장 승인 확률이 높은 추천 정책자금 조합과 세부 준비 로드맵을 알려주세요.`;
+        if (calcModal) calcModal.classList.remove('open');
+        const aiInp = document.getElementById('aiInput');
+        if (aiInp) aiInp.value = q;
+        openAi();
+        document.getElementById('btnSendAi')?.click();
+      });
+    }
+
+    const btnSendAi = document.getElementById('btnSendAi');
+    if (btnSendAi) {
+      btnSendAi.addEventListener('click', async () => {
+        const inp = document.getElementById('aiInput');
+        const q = inp ? inp.value.trim() : '';
+        if (!q) return;
+
+        const chat = document.getElementById('aiChatArea');
+        if (!chat) return;
+        
+        chat.innerHTML += `<div style="align-self:flex-end; background:var(--orange); color:#fff; padding:10px 14px; border-radius:12px; max-width:85%; line-height:1.5;">${q}</div>`;
+        if (inp) inp.value = '';
+
+        const loadingMsg = document.createElement('div');
+        loadingMsg.textContent = 'AI 수석 자문관이 분석 중입니다...';
+        loadingMsg.style.cssText = 'background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:12px; max-width:85%; font-size:12px; color:#64748b; line-height:1.6;';
+        chat.appendChild(loadingMsg);
+        chat.scrollTop = chat.scrollHeight;
+
+        try {
+          const res = await fetch('/api/consult', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q })
+          });
+          const data = await res.json();
+          loadingMsg.innerHTML = (data.answer || '답변을 불러오지 못했습니다.').replace(/\n/g, '<br>');
+          loadingMsg.style.color = 'var(--ink)';
+        } catch (err) {
+          loadingMsg.textContent = '자문 응답 생성 중 일시적인 통신 오류가 발생했습니다. 중진공 콜센터(1357) 또는 신보(1588-6565) 대표 상담을 권장합니다.';
+        }
+        chat.scrollTop = chat.scrollHeight;
+      });
+    }
+
+    const aiInputEl = document.getElementById('aiInput');
+    if (aiInputEl) {
+      aiInputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.getElementById('btnSendAi')?.click();
+        }
+      });
+    }
 
     // Calculator dynamic update
     function updateCalcResults() {
@@ -1820,18 +1985,24 @@
 
       const recs = [];
       if (ind === 'mfg') {
-        recs.push('스마트공장 구축 및 고도화 지원사업 (최대 2억원 국비 매칭)');
+        recs.push('스마트제조혁신 스마트공장 구축·고도화 지원사업 (국비 최대 2억원 매칭)');
+      } else if (ind === 'it') {
+        recs.push('SW 고성장클럽 200 / AI 바우처 지원사업 (최대 3억원 바우처)');
+      } else if (ind === 'bio') {
+        recs.push('바이오헬스 R&D 및 임상 규제특례 신속자금 (최대 10억원)');
       }
+
       if (age === 'under3' || age === 'under7') {
-        recs.push('중진공 청년창업/혁신창업 사업화자금 (연 2%대 저금리 직융)');
+        recs.push('중진공 청년전용/혁신창업사업화자금 (연 2%대 고정·변동 저금리 직융)');
       } else {
-        recs.push('신용보증기금/기술보증기금 성장기반 시설·운전자금 보증');
+        recs.push('신용보증기금/기술보증기금 주력기업 성장기반 시설·운전자금 보증');
       }
+
       if (isExp) {
-        recs.push('중기부 수출바우처 사업 (최대 1억원 국비 바우처)');
+        recs.push('중기부 수출바우처 2차 지원사업 (기업당 최대 1억원 국비 바우처)');
       }
       if (isPat) {
-        recs.push('TIPS/디딤돌 R&D 정부 출연금 (최대 5억원 매칭)');
+        recs.push('TIPS/디딤돌 R&D 출연금 매칭 지원사업 (최대 5억~7억원)');
       }
       if (recs.length === 0) {
         recs.push('중소벤처기업진흥공단 긴급경영안정자금');
@@ -1848,11 +2019,17 @@
       if (el) el.addEventListener('change', updateCalcResults);
     });
 
-    // Close on backdrop click
+    // Close on backdrop click & Escape key
     document.querySelectorAll('.modal-backdrop').forEach(b => {
       b.addEventListener('click', (e) => {
         if (e.target === b) b.classList.remove('open');
       });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.open').forEach(b => b.classList.remove('open'));
+      }
     });
 
     // Fallback Data generator
@@ -1867,22 +2044,91 @@
         exchangeRate: "1,388.50",
         panelHeadline: "수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수",
         macroNews: [
-          { title: "한국은행 기준금리 2.75% 유지 및 시장 금리 안정세", desc: "물가 안정과 가계부채 모니터링 속 기준금리 동결 기조 지속. 중소기업 시설·운전자금 신규 조달 시 고정·변동 혼합 점검 권고.", source: "한국은행", url: "https://www.bok.or.kr", tag: "금리동향", impact: "고금리 대출 대환 및 정책자금 우선 신청 필수" },
-          { title: "원/달러 환율 1,380원대 횡보… 수출기업 환변동보험 지원", desc: "환율 변동성 확대에 따라 무역보험공사 환변동보험 무료 지원 및 수출대금 결제 시기 분산 대응 필요.", source: "한국무역협회", url: "https://www.kita.net", tag: "환율관리", impact: "선물환 거래 및 중소기업 전용 환변동보험 적극 가입" }
+          { 
+            title: "한국은행 기준금리 2.75% 유지 및 시장 금리 안정세", 
+            desc: "물가 안정과 가계부채 모니터링 속 기준금리 동결 기조 지속. 중소기업 시설·운전자금 신규 조달 시 고정·변동 혼합 점검 권고.", 
+            source: "한국은행 / 연합뉴스", 
+            url: "https://www.bok.or.kr", 
+            tag: "금리동향", 
+            impact: "고금리 대출 대환 및 정책자금 우선 신청 필수" 
+          },
+          { 
+            title: "원/달러 환율 1,380원대 횡보… 수출기업 환변동보험 지원", 
+            desc: "환율 변동성 확대에 따라 무역보험공사 환변동보험 무료 지원 및 수출대금 결제 시기 분산 대응 필요.", 
+            source: "한국무역협회(KITA)", 
+            url: "https://www.kita.net", 
+            tag: "환율관리", 
+            impact: "선물환 거래 및 중소기업 전용 환변동보험 적극 가입" 
+          },
+          {
+            title: "중기부, 하반기 중소기업 R&D 및 기술보증 우대 확대",
+            desc: "AI·디지털 전환(DX) 및 친환경 제조 공정 도입 기업 대상 기술보증기금(KIBO) 보증비율 95% 상향 및 보증료율 감면 적용.",
+            source: "중소벤처기업부",
+            url: "https://www.mss.go.kr",
+            tag: "정부정책",
+            impact: "기술평가 인증 사전 준비로 보증 한도 최대 30억 확보 가능"
+          }
         ],
         exportFunding: [
-          { id: "exp-1", title: "2026 수출바우처 2차 참여기업 모집", desc: "해외 마케팅, 글로벌 전시회, 인증 획득 등 14개 분야 메뉴판식 지원.", agency: "중소벤처기업진흥공단", budget: "최대 1억원 국비 지원", deadline: "2026.08.28 마감", dDay: 11, target: "수출실적 500만불 미만 중소·중견기업", url: "https://www.exportvoucher.com", urgent: true },
-          { id: "exp-2", title: "스마트공장 구축 및 고도화 지원사업", desc: "제조 현장의 IoT, AI 연동 설비 도입비 최대 50% 매칭 지원.", agency: "스마트제조혁신추진단", budget: "최대 2억원", deadline: "2026.09.15 마감", dDay: 29, target: "국내 제조 중소기업 (공장등록증 보유)", url: "https://www.smart-factory.kr", urgent: false }
+          { 
+            id: "exp-1", 
+            title: "2026 수출바우처 2차 참여기업 모집", 
+            desc: "해외 마케팅, 글로벌 전시회, 인증 획득, 해외 특허 등 14개 분야 메뉴판식 서비스 지원.", 
+            agency: "중소벤처기업진흥공단", 
+            budget: "최대 1억원 국비 지원", 
+            deadline: "2026.08.28 마감", 
+            dDay: 11, 
+            target: "전년도 수출실적 500만불 미만 중소·중견기업", 
+            url: "https://www.exportvoucher.com", 
+            urgent: true,
+            keyRequirements: "사업자등록증, 재무제표, 수출실적증명원(무역협회 발급)"
+          },
+          { 
+            id: "exp-2", 
+            title: "스마트공장 구축 및 고도화 지원사업", 
+            desc: "제조 현장의 IoT, AI 연동 설비 도입비 최대 50% 매칭 지원.", 
+            agency: "스마트제조혁신추진단", 
+            budget: "기초 5천만원 / 고도화 최대 2억원", 
+            deadline: "2026.09.15 마감", 
+            dDay: 29, 
+            target: "국내 제조 중소·중견기업 (공장등록증 보유)", 
+            url: "https://www.smart-factory.kr", 
+            urgent: false,
+            keyRequirements: "공장등록증, 도입기업-공급기업 매칭 사업계획서"
+          }
         ],
         startupFunding: [
-          { id: "start-1", title: "중진공 혁신창업사업화자금 (저금리 융자)", desc: "기술력 우수 창업기업 대상 연 2%대 직접 대출.", agency: "중진공", budget: "운전 최대 5억 / 시설 최대 60억", deadline: "매월 초 접수", dDay: 7, target: "업력 7년 미만 중소기업", url: "https://www.kosmes.or.kr", urgent: true },
-          { id: "start-2", title: "TIPS 민관공동창업자지원 프로그램", desc: "운영사 투자유치 기업 대상 정부 R&D 5억원 + 사업화 2억원 매칭.", agency: "중기부", budget: "최대 7억원", deadline: "상시 접수", target: "기술 기반 창업기업", url: "https://www.jointips.or.kr", urgent: false }
+          { 
+            id: "start-1", 
+            title: "중진공 혁신창업사업화자금 (저금리 직접융자)", 
+            desc: "기술력 우수 창업기업 대상 연 2%대 저금리 직접 대출 지원.", 
+            agency: "중소벤처기업진흥공단", 
+            budget: "운전 최대 5억 / 시설 최대 60억", 
+            deadline: "매월 초 온라인 접수", 
+            dDay: 7, 
+            target: "업력 7년 미만 중소기업", 
+            url: "https://www.kosmes.or.kr", 
+            urgent: true,
+            keyRequirements: "중진공 포털 사전 회원가입 및 온라인 예약 상담 필수"
+          },
+          { 
+            id: "start-2", 
+            title: "TIPS 민관공동창업자지원 프로그램", 
+            desc: "운영사 투자유치 기업 대상 정부 R&D 5억원 + 사업화 2억원 매칭.", 
+            agency: "중소벤처기업부", 
+            budget: "최대 7억원", 
+            deadline: "상시 접수", 
+            target: "기술 기반 창업기업 (업력 7년 이내)", 
+            url: "https://www.jointips.or.kr", 
+            urgent: false,
+            keyRequirements: "TIPS 공식 운영사 투자확약서 체결 필수"
+          }
         ],
         todayPoint: "1. 3분기 정책자금 한도 소진이 임박했으므로 중진공 및 신보/기보 보증서를 이번 주 내 우선 신청하십시오.\n2. 원/달러 환율 1,380원대 구간에서는 무역보험공사 무료 환변동보험을 반드시 점검하십시오.\n3. 스마트공장 및 수출바우처 마감 일정을 확인하여 수출실적증명서 및 공장등록증을 미리 구비하십시오."
       };
     }
 
-    // Auto Unlock from existing session (Executed last after all elements & functions are loaded)
+    // Auto Unlock from existing session
     if (sessionStorage.getItem('ceo_brief_unlocked') === 'true') {
       unlockApp();
     }
