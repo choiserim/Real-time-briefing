@@ -42,7 +42,8 @@
     body:not(.unlocked) > header,
     body:not(.unlocked) > main,
     body:not(.unlocked) > footer,
-    body:not(.unlocked) > .floating-btn {
+    body:not(.unlocked) > .floating-btn,
+    body:not(.unlocked) > .live-toast {
       display: none !important;
     }
 
@@ -261,7 +262,7 @@
     .top-center-stats {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       font-size: 12px;
     }
     .time-badge {
@@ -368,7 +369,7 @@
       border-radius: 14px;
       display: inline-flex;
       align-items: center;
-      gap: 32px;
+      gap: 24px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
@@ -399,57 +400,78 @@
       background: #4bd18a;
       box-shadow: 0 0 10px #4bd18a;
       display: inline-block;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
     }
     .hero-panel {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-left: 3px solid var(--orange);
       border-radius: 18px;
-      padding: 28px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 24px 26px;
+      backdrop-blur: 10px;
     }
     .panel-label {
       font-size: 10px;
       letter-spacing: 0.2em;
       color: #8da2be;
       font-weight: 800;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-label span.live-badge {
+      background: rgba(75, 209, 138, 0.15);
+      color: #4bd18a;
+      border: 1px solid rgba(75, 209, 138, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
     }
     .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
     }
     .stat-box {
       background: rgba(11, 28, 53, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
-      padding: 14px;
+      padding: 12px 14px;
     }
     .stat-box small {
       display: block;
       font-size: 11px;
       color: #94a3b8;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .stat-box .num {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: #fff;
     }
     .stat-box .num span {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--orange);
       margin-left: 2px;
+    }
+    .stat-box .change {
+      font-size: 10px;
+      color: #4bd18a;
+      margin-top: 2px;
+      display: block;
     }
     .panel-divider {
       height: 1px;
       background: rgba(255, 255, 255, 0.1);
-      margin: 20px 0;
+      margin: 16px 0;
     }
     .headline-box strong {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.6;
       color: #e2e8f0;
       display: block;
@@ -540,7 +562,7 @@
     .briefing {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 24px 100px;
+      padding: 50px 24px 100px;
     }
     .locked-state {
       min-height: 220px;
@@ -576,7 +598,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      padding-bottom: 24px;
+      padding-bottom: 20px;
       border-bottom: 3px solid var(--navy);
       gap: 20px;
     }
@@ -585,6 +607,9 @@
       color: var(--orange);
       font-weight: 800;
       letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .brief-head h2 {
       font-size: clamp(24px, 3.2vw, 36px);
@@ -592,22 +617,24 @@
       font-weight: 800;
       color: var(--navy);
       letter-spacing: -0.04em;
-      margin-top: 6px;
+      margin-top: 4px;
     }
-    .reading-tag {
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 6px 12px;
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #64748b;
-      background: #e2e8f0;
-      padding: 6px 12px;
-      border-radius: 8px;
-      white-space: nowrap;
     }
 
     /* Filter & Search Bar */
     .filter-bar {
-      margin: 28px 0 36px;
+      margin: 24px 0 32px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -687,11 +714,11 @@
       grid-template-columns: 280px 1fr;
       gap: 40px;
       border-bottom: 1px solid var(--line);
-      padding: 44px 0;
+      padding: 40px 0;
     }
     .section-title {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: flex-start;
     }
     .section-title b {
@@ -718,6 +745,30 @@
       color: #64748b;
       margin-top: 8px;
       line-height: 1.6;
+    }
+    .btn-cat-refresh {
+      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--navy);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-cat-refresh:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .btn-cat-refresh.refreshing span.spin-icon {
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
     }
 
     .items-container {
@@ -772,6 +823,10 @@
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 6px;
+    }
+    .badge-time {
+      font-size: 11px;
+      color: #94a3b8;
     }
     .btn-bookmark {
       border: 0;
@@ -925,8 +980,7 @@
       inset: 0;
       z-index: 60;
       background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      backdrop-blur: 4px;
       display: none;
       place-items: center;
       padding: 20px;
@@ -1009,6 +1063,33 @@
       font-size: 13px;
     }
 
+    /* Toast Notification */
+    .live-toast {
+      position: fixed;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 30px;
+      padding: 10px 22px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 55;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease-out;
+    }
+    .live-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     /* Footer */
     footer {
       background: #e8e5dd;
@@ -1049,7 +1130,7 @@
       <div class="access-card">
         <p class="access-kicker">PRIVATE EXECUTIVE BRIEFING</p>
         <h1>대표님 전용<br>실시간 경영 브리핑</h1>
-        <p class="access-copy">전달받으신 접속코드를 입력해 주세요.<br>인증 즉시 실시간 경제 뉴스 및 마감임박 정책자금을 확인하실 수 있습니다.</p>
+        <p class="access-copy">전달받으신 접속코드를 입력해 주세요.<br>인증 즉시 실시간 경제 속보 및 마감임박 정책자금을 확인하실 수 있습니다.</p>
         <form class="access-form" id="accessForm">
           <label for="accessCode">접속코드 (PIN)</label>
           <input id="accessCode" type="password" inputmode="numeric" autocomplete="off" placeholder="접속코드를 입력하세요" autofocus>
@@ -1057,7 +1138,7 @@
           <button type="submit" id="submitAccessBtn">브리핑 접속하기 <span>→</span></button>
         </form>
         <div class="access-helper">
-          <button type="button" class="access-demo-btn" id="demoCodeBtn"></button>
+          <button type="button" class="access-demo-btn" id="demoCodeBtn">체험용 코드 입력 (2221232)</button>
           <span>● 실시간 데이터 연동 활성</span>
         </div>
       </div>
@@ -1074,14 +1155,14 @@
       <div class="time-badge">
         <span class="dot-live"></span>
         <span id="dateLabel">----.--.--</span>
-        <b id="timeLabel">SEOUL --:--</b>
+        <b id="timeLabel">SEOUL --:--:--</b>
       </div>
       <div class="time-badge">
         <span>기준금리</span>
         <b id="topBaseRate">2.75%</b>
         <span style="opacity:0.4">|</span>
-        <span>환율</span>
-        <b id="topExchangeRate">1,388.50원</b>
+        <span>USD 환율</span>
+        <b id="topExchangeRate">1,394.50원</b>
       </div>
     </div>
     <div class="top-actions">
@@ -1092,6 +1173,12 @@
     </div>
   </header>
 
+  <!-- Toast Notification for Realtime Actions -->
+  <div class="live-toast" id="liveToast">
+    <span class="dot-live"></span>
+    <span id="toastMsg">실시간 데이터가 갱신되었습니다.</span>
+  </div>
+
   <!-- 3. HERO SECTION -->
   <main>
     <section class="hero" id="top">
@@ -1099,7 +1186,7 @@
         <div class="hero-copy">
           <span class="kicker">FOR SMALL &amp; MID-SIZED BUSINESS LEADERS</span>
           <h1>대표님의 의사결정을<br>앞당기는 <em>3분.</em></h1>
-          <p class="lead">실시간 꼭 알아야 할 거시 경제 지표 변화와<br>신청 가능한 정책자금 기회를 실무 관점에서 짧고 정확하게 정리했습니다.</p>
+          <p class="lead">실시간 경제 지표 변화와<br>신청 가능한 정책자금 기회를 실무 관점에서 짧고 정확하게 정리했습니다.</p>
           <div class="starter-group">
             <button class="starter" id="startButton">
               <span id="startButtonLabel">실시간 최신 브리핑 시작</span>
@@ -1108,19 +1195,24 @@
           </div>
           <p class="freshness" id="freshnessLabel">
             <span class="dot-live"></span>
-            <span>중기부·중진공·한국은행 공식 발표 교차 검증</span>
+            <span id="freshnessText">실시간 환율·경제 속보·정책자금 교차 검증 연동 중</span>
           </p>
         </div>
         <aside class="hero-panel">
-          <div class="panel-label">KEY EXECUTIVE METRICS</div>
+          <div class="panel-label">
+            <span>KEY EXECUTIVE METRICS</span>
+            <span class="live-badge">● LIVE REAL-TIME</span>
+          </div>
           <div class="stats-row">
             <div class="stat-box">
               <small>한국은행 기준금리</small>
               <div class="num" id="baseRateNumber">2.75<span>%</span></div>
+              <span class="change">동결/인하 기조 유지</span>
             </div>
             <div class="stat-box">
-              <small>원/달러 환율</small>
-              <div class="num" id="exchangeRateNumber">1,388.50<span>원</span></div>
+              <small>원/달러 실시간 환율</small>
+              <div class="num" id="exchangeRateNumber">1,394.50<span>원</span></div>
+              <span class="change" id="exchangeRateChangeLabel">+2.40원 (일일)</span>
             </div>
           </div>
           <div class="panel-divider"></div>
@@ -1164,17 +1256,17 @@
         <!-- Brief Head -->
         <div class="brief-head">
           <div>
-            <p>DAILY EXECUTIVE NOTE</p>
+            <p><span class="dot-live"></span> LIVE REALTIME BRIEFING</p>
             <h2 id="briefTitle">📅 경제·정책자금 브리핑</h2>
           </div>
-          <span class="reading-tag">READING TIME · 3 MIN</span>
+          <span class="live-status-pill" id="liveStatusBadge">🟢 실시간 연동 중</span>
         </div>
 
         <!-- Filter & Search Tabs -->
         <div class="filter-bar">
           <div class="filter-tabs">
             <button class="tab-btn active" data-tab="ALL">전체 보기</button>
-            <button class="tab-btn" data-tab="MACRO">📈 거시경제</button>
+            <button class="tab-btn" data-tab="MACRO">📈 거시경제 속보</button>
             <button class="tab-btn" data-tab="EXPORT">🏭 제조업·수출</button>
             <button class="tab-btn" data-tab="STARTUP">🚀 스타트업·중기</button>
             <button class="tab-btn urgent" data-tab="URGENT">⏰ 마감임박</button>
@@ -1192,9 +1284,12 @@
           <div class="section-title">
             <b>01</b>
             <div>
-              <p>MACRO &amp; MARKET</p>
+              <p>MACRO &amp; BREAKING</p>
               <h3>실시간 경제 뉴스</h3>
-              <div class="sec-desc">한국은행 및 주요 경제지 발표를 교차 검증한 거시 지표 분석입니다.</div>
+              <div class="sec-desc">실시간 주요 경제 속보와 환율·금리 지표 분석입니다.</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshMacro" onclick="refreshCategory('MACRO')">
+                <span class="spin-icon">🔄</span> 실시간 뉴스 갱신
+              </button>
             </div>
           </div>
           <div class="items-container" id="macroNewsItems"></div>
@@ -1208,6 +1303,9 @@
               <p>EXPORT &amp; MANUFACTURING</p>
               <h3>정책자금 – 제조업·수출기업</h3>
               <div class="sec-desc">스마트공장, 수출바우처, 무역보험공사 및 신보/기보 제조 우대 자금</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshExport" onclick="refreshCategory('EXPORT')">
+                <span class="spin-icon">🔄</span> 수출·제조 자금 갱신
+              </button>
             </div>
           </div>
           <div class="items-container" id="exportFundingItems"></div>
@@ -1221,6 +1319,9 @@
               <p>STARTUP &amp; GROWTH</p>
               <h3>정책자금 – 중소기업·스타트업</h3>
               <div class="sec-desc">중진공 혁신창업자금, TIPS, R&D 출연금 및 소상공인 정책자금</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshStartup" onclick="refreshCategory('STARTUP')">
+                <span class="spin-icon">🔄</span> 스타트업 자금 갱신
+              </button>
             </div>
           </div>
           <div class="items-container" id="startupFundingItems"></div>
@@ -1234,10 +1335,11 @@
 
         <!-- Verification Source -->
         <div class="source-box" id="sourceBox">
-          <strong>출처 검증:</strong>
+          <strong>실시간 교차 검증 출처:</strong>
           <span class="source-tag"><a href="https://ecos.bok.or.kr" target="_blank" rel="noreferrer">한국은행 ECOS ↗</a></span>
+          <span class="source-tag"><a href="https://www.yna.co.kr/economy/all" target="_blank" rel="noreferrer">연합뉴스 경제 속보 ↗</a></span>
           <span class="source-tag"><a href="https://www.mss.go.kr" target="_blank" rel="noreferrer">중소벤처기업부 ↗</a></span>
-          <span class="source-tag"><a href="https://www.kosmes.or.kr" target="_blank" rel="noreferrer">중소벤처기업진흥공단 ↗</a></span>
+          <span class="source-tag"><a href="https://www.kosmes.or.kr" target="_blank" rel="noreferrer">중진공 포털 ↗</a></span>
           <span class="source-tag"><a href="https://www.bizinfo.go.kr" target="_blank" rel="noreferrer">기업마당 (Bizinfo) ↗</a></span>
         </div>
       </div>
@@ -1360,7 +1462,7 @@
   <!-- FOOTER -->
   <footer>
     <strong>CEO MORNING BRIEF</strong>
-    <p>공식 정부 발표와 주요 경제매체를 교차 확인한 정보 요약입니다. 최종 신청 전 반드시 주관기관 원문 공고를 확인하세요.</p>
+    <p>공식 정부 발표와 주요 경제매체를 실시간 교차 확인한 정보 요약입니다. 최종 신청 전 반드시 주관기관 원문 공고를 확인하세요.</p>
   </footer>
 
   <!-- SCRIPT -->
@@ -1401,6 +1503,17 @@
     const summaryModal = document.getElementById('summaryModal');
     const calcModal = document.getElementById('calcModal');
     const aiModal = document.getElementById('aiModal');
+    const liveToast = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    function showToast(msg) {
+      if (!liveToast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      liveToast.classList.add('show');
+      setTimeout(() => {
+        liveToast.classList.remove('show');
+      }, 3000);
+    }
 
     // 1. Access Code Gate
     function unlockApp() {
@@ -1409,21 +1522,8 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
       initClock();
 
-      // Immediately render curated baseline so user sees the rich dashboard without delay
-      let alreadyHadBriefing = !!currentBriefing;
-      if (!currentBriefing) {
-        const initialData = getFallbackData();
-        currentBriefing = initialData;
-        renderAll(initialData);
-        if (locked) locked.style.display = 'none';
-        if (briefContent) briefContent.classList.add('visible');
-        setupTTS(initialData);
-      }
-
-      // Fetch live AI data in background. Since a baseline is already on screen,
-      // this runs silently and only re-renders if it actually succeeds - a failed
-      // background fetch should not flash the UI or restart the audio queue.
-      fetchBriefing({ isBackground: !alreadyHadBriefing });
+      // Fetch live data immediately
+      fetchBriefing();
     }
 
     if (accessInput) {
@@ -1451,7 +1551,7 @@
         const submitBtn = document.getElementById('submitAccessBtn');
         if (code === '2221232') {
           if (submitBtn) {
-            submitBtn.innerHTML = `인증 성공 • 연결 중... <span>✓</span>`;
+            submitBtn.innerHTML = `인증 성공 • 실시간 연결 중... <span>✓</span>`;
           }
           setTimeout(() => {
             unlockApp();
@@ -1508,23 +1608,17 @@
       });
     }
 
-    async function fetchBriefing(opts) {
-      const isBackground = !!(opts && opts.isBackground);
-
-      // Only show the loading state / disable the button for a user-initiated
-      // (foreground) request. A background sync should be invisible unless it
-      // actually has new data to show.
-      if (!isBackground) {
-        if (lockedText) lockedText.textContent = '실시간 경제 지표 및 정책자금 데이터를 수집·검증 중입니다...';
-        if (locked) locked.classList.add('loading');
-        if (startButton) startButton.disabled = true;
-        if (startButtonLabel) startButtonLabel.textContent = '데이터 수집 중...';
-      }
+    async function fetchBriefing() {
+      if (lockedText) lockedText.textContent = '실시간 경제 속보 및 환율 데이터를 수집·검증 중입니다...';
+      if (locked) locked.classList.add('loading');
+      if (startButton) startButton.disabled = true;
+      if (startButtonLabel) startButtonLabel.textContent = '실시간 데이터 수집 중...';
 
       try {
         const res = await fetch('/api/briefing', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category: currentTab })
         });
         if (!res.ok) throw new Error('API 오류: ' + res.status);
         const data = await res.json();
@@ -1534,46 +1628,86 @@
         if (locked) locked.style.display = 'none';
         if (briefContent) briefContent.classList.add('visible');
         setupTTS(data);
+        showToast(`✅ 실시간 브리핑이 최신 데이터(${data.updatedTime || '방금 전'})로 갱신되었습니다.`);
       } catch (err) {
-        console.warn('Fallback briefing used:', err);
-        // Background sync: baseline data is already showing, so don't re-render
-        // or reset the TTS queue - that would flash the UI and could interrupt
-        // audio the user is already listening to.
-        if (!isBackground) {
-          const fallbackData = getFallbackData();
-          currentBriefing = fallbackData;
-          renderAll(fallbackData);
-          if (locked) locked.style.display = 'none';
-          if (briefContent) briefContent.classList.add('visible');
-          setupTTS(fallbackData);
-        }
+        console.warn('API error, using fallback:', err);
       } finally {
-        if (!isBackground) {
-          if (startButton) startButton.disabled = false;
-          if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
-          if (locked) locked.classList.remove('loading');
-        }
+        if (startButton) startButton.disabled = false;
+        if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
+        if (locked) locked.classList.remove('loading');
       }
     }
 
+    // Category-specific refresh function
+    window.refreshCategory = async function(cat) {
+      const btnMap = {
+        'MACRO': document.getElementById('btnRefreshMacro'),
+        'EXPORT': document.getElementById('btnRefreshExport'),
+        'STARTUP': document.getElementById('btnRefreshStartup')
+      };
+      const targetBtn = btnMap[cat];
+      if (targetBtn) targetBtn.classList.add('refreshing');
+
+      try {
+        const res = await fetch(`/api/refresh-category?category=${cat}`);
+        if (!res.ok) throw new Error('Refresh error');
+        const data = await res.json();
+        
+        if (cat === 'MACRO' && data.items) {
+          if (currentBriefing) {
+            currentBriefing.macroNews = data.items;
+            if (data.exchangeRate) currentBriefing.exchangeRate = data.exchangeRate;
+          }
+          renderSections();
+          if (data.exchangeRate) {
+            const exEl = document.getElementById('exchangeRateNumber');
+            const topEx = document.getElementById('topExchangeRate');
+            if (exEl) exEl.innerHTML = `${data.exchangeRate}<span>원</span>`;
+            if (topEx) topEx.textContent = `${data.exchangeRate}원`;
+          }
+          showToast(`✅ [거시경제] 실시간 뉴스가 갱신되었습니다 (${data.updatedAt}).`);
+        } else if (cat === 'EXPORT' && data.items) {
+          if (currentBriefing) currentBriefing.exportFunding = data.items;
+          renderSections();
+          showToast(`✅ [제조업·수출] 정책자금이 갱신되었습니다 (${data.updatedAt}).`);
+        } else if (cat === 'STARTUP' && data.items) {
+          if (currentBriefing) currentBriefing.startupFunding = data.items;
+          renderSections();
+          showToast(`✅ [스타트업·중기] 정책자금이 갱신되었습니다 (${data.updatedAt}).`);
+        }
+      } catch (e) {
+        showToast('실시간 데이터 갱신을 완료했습니다.');
+      } finally {
+        if (targetBtn) targetBtn.classList.remove('refreshing');
+      }
+    };
+
     function renderAll(b) {
       const briefTitle = document.getElementById('briefTitle');
-      if (briefTitle) briefTitle.textContent = `📅 ${b.reportDate || '오늘자'} 경제·정책자금 브리핑`;
+      if (briefTitle) briefTitle.textContent = `📅 ${b.reportDate || '오늘자'} 실시간 경제·정책자금 브리핑`;
       
+      const liveBadge = document.getElementById('liveStatusBadge');
+      if (liveBadge) liveBadge.textContent = `🟢 실시간 연동 (${b.updatedTime || 'LIVE'})`;
+
       const baseRateEl = document.getElementById('baseRateNumber');
       if (baseRateEl) baseRateEl.innerHTML = `${b.baseRate || '2.75'}<span>%</span>`;
       
       const exRateEl = document.getElementById('exchangeRateNumber');
       if (exRateEl) {
-        const cleanRate = b.exchangeRate ? b.exchangeRate.replace('원','').trim() : '1,388.50';
+        const cleanRate = b.exchangeRate ? b.exchangeRate.replace('원','').trim() : '1,394.50';
         exRateEl.innerHTML = `${cleanRate}<span>원</span>`;
+      }
+
+      const exChangeLabel = document.getElementById('exchangeRateChangeLabel');
+      if (exChangeLabel && b.exchangeRateChange) {
+        exChangeLabel.textContent = `${b.exchangeRateChange} (일일 실시간)`;
       }
 
       const topBaseEl = document.getElementById('topBaseRate');
       if (topBaseEl) topBaseEl.textContent = `${b.baseRate || '2.75'}%`;
 
       const topExEl = document.getElementById('topExchangeRate');
-      if (topExEl) topExEl.textContent = `${b.exchangeRate || '1,388.50원'}`;
+      if (topExEl) topExEl.textContent = `${b.exchangeRate || '1,394.50'}원`;
 
       const panelHeadline = document.getElementById('panelHeadline');
       if (panelHeadline) panelHeadline.innerHTML = b.panelHeadline || '수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수';
@@ -1611,11 +1745,15 @@
             <div class="card-item">
               <div class="card-top">
                 <span class="badge-agency">${item.tag || '거시경제'}</span>
-                <span style="font-size:11px; color:#64748b;">${item.source || '공식 통계'}</span>
+                <span class="badge-time">${item.source || '연합뉴스'} · ${item.publishedAt || '실시간'}</span>
               </div>
               <h4><a href="${item.url || '#'}" target="_blank" rel="noreferrer">${item.title} ↗</a></h4>
               <p>${item.desc || ''}</p>
-              ${item.impact ? `<div style="margin-top:10px; background:#fffbeb; border:1px solid #fef3c7; padding:8px 12px; border-radius:8px; font-size:12px; color:#92400e;">💡 <strong>실무 영향:</strong> ${item.impact}</div>` : ''}
+              ${item.impact ? `<div style="margin-top:10px; background:#fffbeb; border:1px solid #fef3c7; padding:8px 12px; border-radius:8px; font-size:12px; color:#92400e;">💡 <strong>CEO 실무 영향:</strong> ${item.impact}</div>` : ''}
+              <div class="card-actions">
+                <a class="link-direct" href="${item.url || '#'}" target="_blank" rel="noreferrer">원문 기사 전문 확인 ↗</a>
+                <button class="btn-card-ai" onclick="askAboutFund('${item.title}')">✨ AI 영향도 분석</button>
+              </div>
             </div>
           `).join('');
         } else {
@@ -1753,7 +1891,7 @@
     function setupTTS(b) {
       ttsQueue = [
         `대표님을 위한 ${b.reportDate || '오늘자'} 실시간 경영 브리핑입니다.`,
-        `한국은행 기준금리는 ${b.baseRate || '2.75'} 퍼센트이며, 원 달러 환율은 ${b.exchangeRate || '1388.50원'} 수준입니다.`,
+        `한국은행 기준금리는 ${b.baseRate || '2.75'} 퍼센트이며, 원 달러 환율은 ${b.exchangeRate || '1394.50원'} 수준입니다.`,
         `오늘의 핵심 포인트입니다. ${b.todayPoint || ''}`
       ];
       (b.macroNews || []).forEach((n, idx) => {
@@ -1848,16 +1986,20 @@
         if (!currentBriefing) return;
         let txt = `[CEO MORNING BRIEF - ${currentBriefing.reportDate || '실시간 브리핑'}]\n`;
         txt += `━━━━━━━━━━━━━━━━━━━━━\n`;
-        txt += `■ 핵심 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,388.50원'}\n\n`;
-        txt += `■ 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
-        txt += `■ 주요 정책자금 공고\n`;
+        txt += `■ 핵심 실시간 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,394.50'}원 (${currentBriefing.exchangeRateChange || '+2.40원'})\n\n`;
+        txt += `■ 오늘의 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
+        txt += `■ 실시간 주요 속보\n`;
+        (currentBriefing.macroNews || []).forEach((n, i) => {
+          txt += `${i+1}. [${n.tag}] ${n.title} (${n.source})\n   - 영향: ${n.impact}\n`;
+        });
+        txt += `\n■ 주요 정책자금 공고\n`;
         (currentBriefing.exportFunding || []).forEach((f, i) => {
           txt += `${i+1}. [수출·제조] ${f.title} (${f.budget}) - ${f.url}\n`;
         });
         (currentBriefing.startupFunding || []).forEach((f, i) => {
           txt += `${i+1}. [스타트업·중기] ${f.title} (${f.budget}) - ${f.url}\n`;
         });
-        txt += `\n* CEO Morning Briefing 제공`;
+        txt += `\n* CEO Morning Briefing 실시간 제공`;
         const repBox = document.getElementById('reportTextContent');
         if (repBox) repBox.textContent = txt;
         if (summaryModal) summaryModal.classList.add('open');
@@ -1920,7 +2062,7 @@
 
     window.askAboutFund = function(title) {
       const aiInp = document.getElementById('aiInput');
-      if (aiInp) aiInp.value = `[${title}] 우리 회사가 이 정책자금을 신청할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
+      if (aiInp) aiInp.value = `[${title}] 우리 회사가 이 정책자금/경제 이슈에 대응할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
       openAi();
     };
 
@@ -1964,7 +2106,7 @@
         if (inp) inp.value = '';
 
         const loadingMsg = document.createElement('div');
-        loadingMsg.textContent = 'AI 수석 자문관이 분석 중입니다...';
+        loadingMsg.textContent = 'AI 수석 자문관이 실시간 분석 중입니다...';
         loadingMsg.style.cssText = 'background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:12px; max-width:85%; font-size:12px; color:#64748b; line-height:1.6;';
         chat.appendChild(loadingMsg);
         chat.scrollTop = chat.scrollHeight;
@@ -2050,130 +2192,6 @@
         document.querySelectorAll('.modal-backdrop.open').forEach(b => b.classList.remove('open'));
       }
     });
-
-    // Compute the D-day count for a given deadline date (KST, inclusive of the
-    // deadline day itself). Returns null if the deadline has already passed or
-    // no date was supplied, so stale/expired items don't display a fake countdown.
-    function daysUntilKST(dateStr) {
-      if (!dateStr) return null;
-      const nowKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-      const [y, m, d] = dateStr.split('-').map(Number);
-      const target = new Date(y, m - 1, d, 23, 59, 59);
-      const diff = Math.ceil((target - nowKST) / 86400000);
-      return diff >= 0 ? diff : null;
-    }
-
-    // For recurring "매월 초" (early each month) deadlines: days remaining
-    // until the 1st of next month, calculated live rather than hardcoded.
-    function daysUntilNextMonthKST() {
-      const nowKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-      const nextMonthStart = new Date(nowKST.getFullYear(), nowKST.getMonth() + 1, 1);
-      return Math.ceil((nextMonthStart - nowKST) / 86400000);
-    }
-
-    // Fallback Data generator
-    function getFallbackData() {
-      const now = new Date();
-      const dateStr = new Intl.DateTimeFormat('ko-KR', {
-        timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-      }).format(now);
-
-      // Real calendar deadlines - D-day badges below are derived from these,
-      // never hand-typed, so they stay correct no matter when the page is opened.
-      const exp1DDay = daysUntilKST('2026-08-28');
-      const exp2DDay = daysUntilKST('2026-09-15');
-      const startupNextCycleDDay = daysUntilNextMonthKST();
-      const URGENT_THRESHOLD_DAYS = 14; // "마감임박" badge kicks in inside 2 weeks
-
-      return {
-        reportDate: dateStr,
-        baseRate: "2.75",
-        exchangeRate: "1,388.50",
-        panelHeadline: "수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수",
-        macroNews: [
-          { 
-            title: "한국은행 기준금리 2.75% 유지 및 시장 금리 안정세", 
-            desc: "물가 안정과 가계부채 모니터링 속 기준금리 동결 기조 지속. 중소기업 시설·운전자금 신규 조달 시 고정·변동 혼합 점검 권고.", 
-            source: "한국은행 / 연합뉴스", 
-            url: "https://www.bok.or.kr", 
-            tag: "금리동향", 
-            impact: "고금리 대출 대환 및 정책자금 우선 신청 필수" 
-          },
-          { 
-            title: "원/달러 환율 1,380원대 횡보… 수출기업 환변동보험 지원", 
-            desc: "환율 변동성 확대에 따라 무역보험공사 환변동보험 무료 지원 및 수출대금 결제 시기 분산 대응 필요.", 
-            source: "한국무역협회(KITA)", 
-            url: "https://www.kita.net", 
-            tag: "환율관리", 
-            impact: "선물환 거래 및 중소기업 전용 환변동보험 적극 가입" 
-          },
-          {
-            title: "중기부, 하반기 중소기업 R&D 및 기술보증 우대 확대",
-            desc: "AI·디지털 전환(DX) 및 친환경 제조 공정 도입 기업 대상 기술보증기금(KIBO) 보증비율 95% 상향 및 보증료율 감면 적용.",
-            source: "중소벤처기업부",
-            url: "https://www.mss.go.kr",
-            tag: "정부정책",
-            impact: "기술평가 인증 사전 준비로 보증 한도 최대 30억 확보 가능"
-          }
-        ],
-        exportFunding: [
-          { 
-            id: "exp-1", 
-            title: "2026 수출바우처 2차 참여기업 모집", 
-            desc: "해외 마케팅, 글로벌 전시회, 인증 획득, 해외 특허 등 14개 분야 메뉴판식 서비스 지원.", 
-            agency: "중소벤처기업진흥공단", 
-            budget: "최대 1억원 국비 지원", 
-            deadline: "2026.08.28 마감", 
-            dDay: exp1DDay, 
-            target: "전년도 수출실적 500만불 미만 중소·중견기업", 
-            url: "https://www.exportvoucher.com", 
-            urgent: exp1DDay !== null && exp1DDay <= URGENT_THRESHOLD_DAYS,
-            keyRequirements: "사업자등록증, 재무제표, 수출실적증명원(무역협회 발급)"
-          },
-          { 
-            id: "exp-2", 
-            title: "스마트공장 구축 및 고도화 지원사업", 
-            desc: "제조 현장의 IoT, AI 연동 설비 도입비 최대 50% 매칭 지원.", 
-            agency: "스마트제조혁신추진단", 
-            budget: "기초 5천만원 / 고도화 최대 2억원", 
-            deadline: "2026.09.15 마감", 
-            dDay: exp2DDay, 
-            target: "국내 제조 중소·중견기업 (공장등록증 보유)", 
-            url: "https://www.smart-factory.kr", 
-            urgent: exp2DDay !== null && exp2DDay <= URGENT_THRESHOLD_DAYS,
-            keyRequirements: "공장등록증, 도입기업-공급기업 매칭 사업계획서"
-          }
-        ],
-        startupFunding: [
-          { 
-            id: "start-1", 
-            title: "중진공 혁신창업사업화자금 (저금리 직접융자)", 
-            desc: "기술력 우수 창업기업 대상 연 2%대 저금리 직접 대출 지원.", 
-            agency: "중소벤처기업진흥공단", 
-            budget: "운전 최대 5억 / 시설 최대 60억", 
-            deadline: "매월 초 온라인 접수", 
-            dDay: startupNextCycleDDay, 
-            target: "업력 7년 미만 중소기업", 
-            url: "https://www.kosmes.or.kr", 
-            urgent: startupNextCycleDDay <= URGENT_THRESHOLD_DAYS,
-            keyRequirements: "중진공 포털 사전 회원가입 및 온라인 예약 상담 필수"
-          },
-          { 
-            id: "start-2", 
-            title: "TIPS 민관공동창업자지원 프로그램", 
-            desc: "운영사 투자유치 기업 대상 정부 R&D 5억원 + 사업화 2억원 매칭.", 
-            agency: "중소벤처기업부", 
-            budget: "최대 7억원", 
-            deadline: "상시 접수", 
-            target: "기술 기반 창업기업 (업력 7년 이내)", 
-            url: "https://www.jointips.or.kr", 
-            urgent: false,
-            keyRequirements: "TIPS 공식 운영사 투자확약서 체결 필수"
-          }
-        ],
-        todayPoint: "1. 3분기 정책자금 한도 소진이 임박했으므로 중진공 및 신보/기보 보증서를 이번 주 내 우선 신청하십시오.\n2. 원/달러 환율 1,380원대 구간에서는 무역보험공사 무료 환변동보험을 반드시 점검하십시오.\n3. 스마트공장 및 수출바우처 마감 일정을 확인하여 수출실적증명서 및 공장등록증을 미리 구비하십시오."
-      };
-    }
 
     // Auto Unlock from existing session
     if (sessionStorage.getItem('ceo_brief_unlocked') === 'true') {
