@@ -1,0 +1,6 @@
+{
+  "name": "CEO Morning Brief - 실시간 경제 및 정책자금 브리핑",
+  "description": "중소·중견기업 대표를 위한 3분 실시간 경제 뉴스 및 최신 정책자금 맞춤 브리핑 시스템",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

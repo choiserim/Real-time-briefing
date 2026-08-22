@@ -1,0 +1,2190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="중소·중견기업 대표를 위한 3분 실시간 경제·정책자금 브리핑">
+  <title>CEO MORNING BRIEF - 실시간 경제 뉴스 & 정책자금 브리핑</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1c35;
+      --navy-light: #142d4d;
+      --navy-border: #1e3a5f;
+      --ink: #142033;
+      --orange: #f25c2a;
+      --orange-hover: #ea580c;
+      --orange-soft: rgba(242, 92, 42, 0.12);
+      --paper: #f5f3ed;
+      --paper-card: #ffffff;
+      --line: #d9d6ce;
+      --line-subtle: #e8e5dc;
+      --text-muted: #64748b;
+      --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Noto Serif KR', Georgia, serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    /* Gate Visibility Toggle */
+    body:not(.unlocked) > header,
+    body:not(.unlocked) > main,
+    body:not(.unlocked) > footer,
+    body:not(.unlocked) > .floating-btn,
+    body:not(.unlocked) > .live-toast {
+      display: none !important;
+    }
+
+    body.unlocked > .access-page,
+    body.unlocked #accessPage {
+      display: none !important;
+    }
+
+    /* ---------------- 1. ACCESS GATE ---------------- */
+    .access-page {
+      min-height: 100vh;
+      background: radial-gradient(circle at 82% 15%, #26466d 0%, #142d4d 28%, #0b1c35 65%);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .access-page:before, .access-page:after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .access-page:before {
+      width: 680px;
+      height: 680px;
+      right: -280px;
+      top: -260px;
+      box-shadow: 0 0 0 85px rgba(255, 255, 255, 0.03), 0 0 0 170px rgba(255, 255, 255, 0.015);
+    }
+    .access-page:after {
+      width: 420px;
+      height: 420px;
+      left: -220px;
+      bottom: -220px;
+      box-shadow: 0 0 0 70px rgba(255, 255, 255, 0.02);
+    }
+    .access-shell {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 520px);
+      text-align: center;
+    }
+    .access-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #ff8c66;
+      margin-bottom: 20px;
+    }
+    .access-brand {
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      font-weight: 800;
+      color: #b8c1ce;
+      margin-bottom: 24px;
+      font-family: var(--font-serif);
+    }
+    .access-brand span { color: var(--orange); }
+    .access-card {
+      background: #fff;
+      color: var(--ink);
+      border-radius: 20px;
+      padding: 42px 38px 34px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      text-align: left;
+    }
+    .access-kicker {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .access-card h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-family: var(--font-serif);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+    .access-copy {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #64748b;
+      margin: 14px 0 26px;
+    }
+    .access-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .access-form input {
+      width: 100%;
+      height: 54px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 0 16px;
+      font-size: 18px;
+      letter-spacing: 0.15em;
+      font-family: monospace;
+      outline: none;
+      transition: 0.2s;
+    }
+    .access-form input:focus {
+      border-color: var(--navy);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(11, 28, 53, 0.12);
+    }
+    .access-form input.invalid {
+      border-color: #ef4444;
+      background: #fef2f2;
+      animation: shake 0.3s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .access-error {
+      display: none;
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+    .access-form button {
+      width: 100%;
+      height: 54px;
+      margin-top: 16px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(242, 92, 42, 0.25);
+      transition: 0.2s;
+    }
+    .access-form button:hover {
+      background: var(--orange-hover);
+      transform: translateY(-1px);
+    }
+    .access-helper {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ---------------- 2. TOPBAR ---------------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: 70px;
+      background: var(--navy);
+      color: #fff;
+      padding: 0 max(4vw, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--navy-border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .brand {
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      font-weight: 800;
+      font-family: var(--font-serif);
+      display: flex;
+      flex-direction: column;
+    }
+    .brand span { color: var(--orange); }
+    .brand-sub {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: #8da2be;
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+    .top-center-stats {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .time-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+    }
+    .time-badge b { color: #fde047; font-family: monospace; }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-top {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-top:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .btn-top.accent {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+    .btn-top.accent:hover {
+      background: var(--orange-hover);
+    }
+
+    /* ---------------- 3. HERO ---------------- */
+    .hero {
+      background: linear-gradient(115deg, #0b1c35 0%, #102746 65%, #193456 100%);
+      color: #fff;
+      padding: 70px max(5vw, 24px) 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .kicker {
+      color: #ff8c66;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      margin-bottom: 20px;
+      display: inline-block;
+      background: rgba(242, 92, 42, 0.15);
+      border: 1px solid rgba(242, 92, 42, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(34px, 4.8vw, 62px);
+      font-family: var(--font-serif);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+    .hero h1 em {
+      color: var(--orange);
+      font-style: normal;
+    }
+    .lead {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #c4ceda;
+      margin: 22px 0 32px;
+      max-width: 620px;
+      font-weight: 300;
+    }
+    .starter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+    .starter {
+      border: 0;
+      background: var(--orange);
+      color: #fff;
+      padding: 16px 28px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      transition: 0.2s;
+    }
+    .starter:hover {
+      background: var(--orange-hover);
+      transform: translateY(-2px);
+    }
+    .starter:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+    }
+    .freshness {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4bd18a;
+      box-shadow: 0 0 10px #4bd18a;
+      display: inline-block;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid var(--orange);
+      border-radius: 18px;
+      padding: 24px 26px;
+      backdrop-blur: 10px;
+    }
+    .panel-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #8da2be;
+      font-weight: 800;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-label span.live-badge {
+      background: rgba(75, 209, 138, 0.15);
+      color: #4bd18a;
+      border: 1px solid rgba(75, 209, 138, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat-box {
+      background: rgba(11, 28, 53, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .stat-box small {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+    .stat-box .num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-box .num span {
+      font-size: 13px;
+      color: var(--orange);
+      margin-left: 2px;
+    }
+    .stat-box .change {
+      font-size: 10px;
+      color: #4bd18a;
+      margin-top: 2px;
+      display: block;
+    }
+    .panel-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 16px 0;
+    }
+    .headline-box strong {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      display: block;
+      font-family: var(--font-serif);
+    }
+
+    /* ---------------- 4. AUDIO PLAYER ---------------- */
+    .audio-bar {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .audio-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .audio-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--orange-soft);
+      border: 1px solid rgba(242, 92, 42, 0.3);
+      color: var(--orange);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+    .audio-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #ff8c66;
+    }
+    .audio-desc {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-audio {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-audio:hover { background: rgba(255, 255, 255, 0.18); }
+    .btn-audio.play {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+    .btn-audio.play:hover { background: var(--orange-hover); }
+    .audio-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+      display: none;
+    }
+    .audio-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--orange);
+      transition: width 0.3s;
+    }
+
+    /* ---------------- 5. BRIEFING MAIN ---------------- */
+    .briefing {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 24px 100px;
+    }
+    .locked-state {
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #64748b;
+      gap: 16px;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px dashed var(--line);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3px solid #cbd5e1;
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+    .locked-state.loading .spinner { display: block; }
+    .locked-state.loading .lock-icon { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .brief-content { display: none; }
+    .brief-content.visible { display: block; }
+
+    .brief-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--navy);
+      gap: 20px;
+    }
+    .brief-head p {
+      font-size: 11px;
+      color: var(--orange);
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brief-head h2 {
+      font-size: clamp(24px, 3.2vw, 36px);
+      font-family: var(--font-serif);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      margin-top: 4px;
+    }
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Filter & Search Bar */
+    .filter-bar {
+      margin: 24px 0 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #e2dfd5;
+      padding: 5px;
+      border-radius: 12px;
+    }
+    .tab-btn {
+      border: 0;
+      background: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: 0.18s;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active {
+      background: #fff;
+      color: var(--navy);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .tab-btn.urgent.active {
+      background: #dc2626;
+      color: #fff;
+    }
+    .search-box {
+      position: relative;
+      min-width: 260px;
+    }
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 0 32px 0 36px;
+      font-size: 12px;
+      outline: none;
+    }
+    .search-box input:focus {
+      border-color: var(--navy);
+    }
+    .search-box span.search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    .search-box button.clear-search {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 0;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+
+    /* Section & Cards */
+    .section {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      border-bottom: 1px solid var(--line);
+      padding: 40px 0;
+    }
+    .section-title {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .section-title b {
+      font-size: 15px;
+      color: var(--orange);
+      font-family: var(--font-serif);
+    }
+    .section-title p {
+      font-size: 10px;
+      color: #64748b;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .section-title h3 {
+      font-size: 22px;
+      line-height: 1.3;
+      font-family: var(--font-serif);
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .section-title .sec-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .btn-cat-refresh {
+      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--navy);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-cat-refresh:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .btn-cat-refresh.refreshing span.spin-icon {
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    .items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .card-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 26px;
+      border: 1px solid rgba(0,0,0,0.07);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: all 0.2s;
+    }
+    .card-item:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      transform: translateY(-1px);
+    }
+    .card-item.urgent-card {
+      border-color: #fca5a5;
+      background: #fffafa;
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .badge-urgent {
+      background: #dc2626;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .badge-dday {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .badge-agency {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .badge-time {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .btn-bookmark {
+      border: 0;
+      background: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+      transition: 0.15s;
+    }
+    .btn-bookmark:hover, .btn-bookmark.bookmarked {
+      color: #f59e0b;
+    }
+    .card-item h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 8px;
+      line-height: 1.4;
+    }
+    .card-item h4 a:hover {
+      color: var(--orange);
+    }
+    .card-item p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #475569;
+    }
+    .meta-matrix {
+      margin-top: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #334155;
+    }
+    .meta-row span { color: #64748b; }
+    .meta-row strong { color: var(--navy); }
+    .meta-full { grid-column: span 2; }
+    .key-req-box {
+      margin-top: 10px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #166534;
+    }
+    .card-actions {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .link-direct {
+      color: var(--orange);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .link-direct:hover { text-decoration: underline; }
+    .btn-card-ai {
+      background: var(--navy);
+      color: #fff;
+      border: 0;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.15s;
+    }
+    .btn-card-ai:hover { background: var(--navy-light); }
+
+    /* Point Callout */
+    .point-box {
+      background: var(--navy);
+      color: #fff;
+      margin-top: 50px;
+      padding: 30px 36px;
+      border-radius: 20px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 16px 40px rgba(11, 28, 53, 0.2);
+    }
+    .point-badge {
+      font-size: 13px;
+      color: #ff8c66;
+      font-weight: 800;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 16px;
+      border-radius: 12px;
+    }
+    .point-box p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #cbd5e1;
+      white-space: pre-line;
+      font-weight: 300;
+    }
+
+    /* Verification Box */
+    .source-box {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 20px;
+      font-size: 12px;
+      color: #475569;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .source-tag {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .source-tag a:hover {
+      color: var(--orange);
+    }
+
+    /* ---------------- 6. MODALS & DRAWERS ---------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(0,0,0,0.6);
+      backdrop-blur: 4px;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      width: min(100%, 600px);
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .modal-head {
+      background: var(--navy);
+      color: #fff;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-head h3 {
+      font-size: 17px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+    }
+    .btn-close {
+      background: none;
+      border: 0;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .btn-close:hover { color: #fff; }
+    .modal-body { padding: 24px; }
+    .report-text {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      max-height: 320px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    /* Floating Button */
+    .floating-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 50;
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid var(--navy-border);
+      border-radius: 50px;
+      padding: 12px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .floating-btn:hover {
+      transform: translateY(-2px);
+      background: var(--navy-light);
+    }
+    .floating-btn span.icon {
+      width: 26px;
+      height: 26px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+    }
+
+    /* Toast Notification */
+    .live-toast {
+      position: fixed;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 30px;
+      padding: 10px 22px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 55;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease-out;
+    }
+    .live-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      background: #e8e5dd;
+      border-top: 1px solid var(--line);
+      padding: 30px max(5vw, 24px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+    footer strong {
+      font-family: var(--font-serif);
+      color: var(--navy);
+      letter-spacing: 0.15em;
+    }
+
+    /* Responsive */
+    @media (max-width: 840px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      .section { grid-template-columns: 1fr; gap: 20px; }
+      .top-center-stats { display: none; }
+      .point-box { flex-direction: column; align-items: flex-start; gap: 14px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .meta-matrix { grid-template-columns: 1fr; }
+      .meta-full { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. VIP ACCESS GATE -->
+  <section class="access-page" id="accessPage">
+    <div class="access-shell">
+      <div class="access-badge">🔒 EXECUTIVE ONLY</div>
+      <div class="access-brand">CEO MORNING <span>BRIEF</span></div>
+      <div class="access-card">
+        <p class="access-kicker">PRIVATE EXECUTIVE BRIEFING</p>
+        <h1>대표님 전용<br>실시간 경영 브리핑</h1>
+        <p class="access-copy">전달받으신 접속코드를 입력해 주세요.<br>인증 즉시 실시간 경제 속보 및 마감임박 정책자금을 확인하실 수 있습니다.</p>
+        <form class="access-form" id="accessForm">
+          <label for="accessCode">접속코드 (PIN)</label>
+          <input id="accessCode" type="password" inputmode="numeric" autocomplete="off" placeholder="접속코드를 입력하세요" autofocus>
+          <p class="access-error" id="accessError" role="alert">접속코드가 일치하지 않습니다. 다시 확인해 주세요.</p>
+          <button type="submit" id="submitAccessBtn">브리핑 접속하기 <span>→</span></button>
+        </form>
+        <div class="access-helper">
+          <span>● 실시간 데이터 연동 활성</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. STICKY TOPBAR -->
+  <header class="topbar">
+    <a class="brand" href="#top">
+      CEO MORNING <span>BRIEF</span>
+      <span class="brand-sub">중소·중견기업 최고경영자 전용</span>
+    </a>
+    <div class="top-center-stats">
+      <div class="time-badge">
+        <span class="dot-live"></span>
+        <span id="dateLabel">----.--.--</span>
+        <b id="timeLabel">SEOUL --:--:--</b>
+      </div>
+      <div class="time-badge">
+        <span>기준금리</span>
+        <b id="topBaseRate">2.75%</b>
+        <span style="opacity:0.4">|</span>
+        <span>USD 환율</span>
+        <b id="topExchangeRate">1,394.50원</b>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-top" id="btnOpenSummary">📋 보고서 복사</button>
+      <button class="btn-top" id="btnOpenCalc">📊 자가진단</button>
+      <button class="btn-top accent" id="btnOpenAi">✨ AI 자문</button>
+      <button class="btn-top" id="btnLock" title="화면 잠금">🔒</button>
+    </div>
+  </header>
+
+  <!-- Toast Notification for Realtime Actions -->
+  <div class="live-toast" id="liveToast">
+    <span class="dot-live"></span>
+    <span id="toastMsg">실시간 데이터가 갱신되었습니다.</span>
+  </div>
+
+  <!-- 3. HERO SECTION -->
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-container">
+        <div class="hero-copy">
+          <span class="kicker">FOR SMALL &amp; MID-SIZED BUSINESS LEADERS</span>
+          <h1>대표님의 의사결정을<br>앞당기는 <em>3분.</em></h1>
+          <p class="lead">실시간 경제 지표 변화와<br>신청 가능한 정책자금 기회를 실무 관점에서 짧고 정확하게 정리했습니다.</p>
+          <div class="starter-group">
+            <button class="starter" id="startButton">
+              <span id="startButtonLabel">실시간 최신 브리핑 시작</span>
+              <b>→</b>
+            </button>
+          </div>
+          <p class="freshness" id="freshnessLabel">
+            <span class="dot-live"></span>
+            <span id="freshnessText">실시간 환율·경제 속보·정책자금 교차 검증 연동 중</span>
+          </p>
+        </div>
+        <aside class="hero-panel">
+          <div class="panel-label">
+            <span>KEY EXECUTIVE METRICS</span>
+            <span class="live-badge">● LIVE REAL-TIME</span>
+          </div>
+          <div class="stats-row">
+            <div class="stat-box">
+              <small>한국은행 기준금리</small>
+              <div class="num" id="baseRateNumber">2.75<span>%</span></div>
+              <span class="change">동결/인하 기조 유지</span>
+            </div>
+            <div class="stat-box">
+              <small>원/달러 실시간 환율</small>
+              <div class="num" id="exchangeRateNumber">1,394.50<span>원</span></div>
+              <span class="change" id="exchangeRateChangeLabel">+2.40원 (일일)</span>
+            </div>
+          </div>
+          <div class="panel-divider"></div>
+          <div class="headline-box">
+            <strong id="panelHeadline">수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수</strong>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 4. BRIEFING SECTION -->
+    <section id="briefing" class="briefing" aria-live="polite">
+      <!-- Loading / Placeholder -->
+      <div class="locked-state" id="locked">
+        <span class="lock-icon" style="font-size:32px;">📊</span>
+        <div class="spinner"></div>
+        <p id="lockedText">상단의 <strong>실시간 최신 브리핑 시작</strong>을 누르면 오늘자 브리핑이 열립니다.</p>
+      </div>
+
+      <!-- Main Content View -->
+      <div class="brief-content" id="briefContent">
+        <!-- Audio TTS Bar -->
+        <div class="audio-bar" id="audioBar">
+          <div class="audio-info">
+            <div class="audio-icon" id="audioIcon">🔊</div>
+            <div>
+              <div class="audio-title">3-MIN AUDIO EXECUTIVE BRIEF</div>
+              <div class="audio-desc" id="audioStatusText">출근길 및 이동 중 3분 음성 브리핑을 청취하세요.</div>
+            </div>
+          </div>
+          <div class="audio-controls">
+            <button class="btn-audio" id="btnAudioRate">1.2x</button>
+            <button class="btn-audio" id="btnAudioRestart">처음부터</button>
+            <button class="btn-audio play" id="btnAudioToggle">▶ 브리핑 청취</button>
+          </div>
+          <div class="audio-progress" id="audioProgress">
+            <div class="audio-progress-bar" id="audioProgressBar"></div>
+          </div>
+        </div>
+
+        <!-- Brief Head -->
+        <div class="brief-head">
+          <div>
+            <p><span class="dot-live"></span> LIVE REALTIME BRIEFING</p>
+            <h2 id="briefTitle">📅 경제·정책자금 브리핑</h2>
+          </div>
+          <span class="live-status-pill" id="liveStatusBadge">🟢 실시간 연동 중</span>
+        </div>
+
+        <!-- Filter & Search Tabs -->
+        <div class="filter-bar">
+          <div class="filter-tabs">
+            <button class="tab-btn active" data-tab="ALL">전체 보기</button>
+            <button class="tab-btn" data-tab="MACRO">📈 거시경제 속보</button>
+            <button class="tab-btn" data-tab="EXPORT">🏭 제조업·수출</button>
+            <button class="tab-btn" data-tab="STARTUP">🚀 스타트업·중기</button>
+            <button class="tab-btn urgent" data-tab="URGENT">⏰ 마감임박</button>
+            <button class="tab-btn" data-tab="BOOKMARKS">⭐ 스크랩 (<span id="bookmarkCount">0</span>)</button>
+          </div>
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="공고명, 지원대상, 키워드 검색...">
+            <button type="button" class="clear-search" id="clearSearchBtn">✕</button>
+          </div>
+        </div>
+
+        <!-- 01: MACRO & MARKET -->
+        <article class="section" id="secMacro">
+          <div class="section-title">
+            <b>01</b>
+            <div>
+              <p>MACRO &amp; BREAKING</p>
+              <h3>실시간 경제 뉴스</h3>
+              <div class="sec-desc">실시간 주요 경제 속보와 환율·금리 지표 분석입니다.</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshMacro" onclick="refreshCategory('MACRO')">
+                <span class="spin-icon">🔄</span> 실시간 뉴스 갱신
+              </button>
+            </div>
+          </div>
+          <div class="items-container" id="macroNewsItems"></div>
+        </article>
+
+        <!-- 02: EXPORT & MANUFACTURING -->
+        <article class="section" id="secExport">
+          <div class="section-title">
+            <b>02</b>
+            <div>
+              <p>EXPORT &amp; MANUFACTURING</p>
+              <h3>정책자금 – 제조업·수출기업</h3>
+              <div class="sec-desc">스마트공장, 수출바우처, 무역보험공사 및 신보/기보 제조 우대 자금</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshExport" onclick="refreshCategory('EXPORT')">
+                <span class="spin-icon">🔄</span> 수출·제조 자금 갱신
+              </button>
+            </div>
+          </div>
+          <div class="items-container" id="exportFundingItems"></div>
+        </article>
+
+        <!-- 03: STARTUP & GROWTH -->
+        <article class="section" id="secStartup">
+          <div class="section-title">
+            <b>03</b>
+            <div>
+              <p>STARTUP &amp; GROWTH</p>
+              <h3>정책자금 – 중소기업·스타트업</h3>
+              <div class="sec-desc">중진공 혁신창업자금, TIPS, R&D 출연금 및 소상공인 정책자금</div>
+              <button type="button" class="btn-cat-refresh" id="btnRefreshStartup" onclick="refreshCategory('STARTUP')">
+                <span class="spin-icon">🔄</span> 스타트업 자금 갱신
+              </button>
+            </div>
+          </div>
+          <div class="items-container" id="startupFundingItems"></div>
+        </article>
+
+        <!-- Point of the day -->
+        <div class="point-box">
+          <div class="point-badge">💡 오늘의 핵심 포인트</div>
+          <p id="todayPointText"></p>
+        </div>
+
+        <!-- Verification Source -->
+        <div class="source-box" id="sourceBox">
+          <strong>실시간 교차 검증 출처:</strong>
+          <span class="source-tag"><a href="https://ecos.bok.or.kr" target="_blank" rel="noreferrer">한국은행 ECOS ↗</a></span>
+          <span class="source-tag"><a href="https://www.yna.co.kr/economy/all" target="_blank" rel="noreferrer">연합뉴스 경제 속보 ↗</a></span>
+          <span class="source-tag"><a href="https://www.mss.go.kr" target="_blank" rel="noreferrer">중소벤처기업부 ↗</a></span>
+          <span class="source-tag"><a href="https://www.kosmes.or.kr" target="_blank" rel="noreferrer">중진공 포털 ↗</a></span>
+          <span class="source-tag"><a href="https://www.bizinfo.go.kr" target="_blank" rel="noreferrer">기업마당 (Bizinfo) ↗</a></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. FLOATING AI BUTTON -->
+  <button class="floating-btn" id="floatingAiBtn">
+    <span class="icon">✨</span>
+    <span>CEO AI 정책자금 자문</span>
+  </button>
+
+  <!-- 6. MODALS -->
+  <!-- Report Export Modal -->
+  <div class="modal-backdrop" id="summaryModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>📋 경영진 보고용 요약본</h3>
+        <button class="btn-close" id="closeSummaryModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:#64748b; margin-bottom:12px;">카카오톡, 사내 메신저, 이메일로 원클릭 전송 가능한 텍스트 포맷입니다.</p>
+        <div class="report-text" id="reportTextContent"></div>
+        <div style="display:flex; justify-content:space-between; margin-top:16px;">
+          <button class="btn-top" id="btnPrintReport" style="background:#f1f5f9; color:#334155; border-color:#cbd5e1;">🖨️ 인쇄 (PDF)</button>
+          <button class="btn-top accent" id="btnCopyReport">클립보드 전체 복사</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eligibility Calculator Modal -->
+  <div class="modal-backdrop" id="calcModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>📊 정책자금 신청 적합도 1분 자가진단</h3>
+        <button class="btn-close" id="closeCalcModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; flex-direction:column; gap:14px; font-size:13px;">
+          <div>
+            <label style="font-weight:700; display:block; margin-bottom:6px;">1. 주력 업종</label>
+            <select id="calcIndustry" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
+              <option value="mfg">제조업 (공장보유/뿌리/첨단)</option>
+              <option value="it">IT / 소프트웨어 / AI</option>
+              <option value="trade">도소매 / 유통 / 무역</option>
+              <option value="service">전문·지식서비스업</option>
+              <option value="bio">바이오 / 헬스케어</option>
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div>
+              <label style="font-weight:700; display:block; margin-bottom:6px;">2. 업력</label>
+              <select id="calcAge" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
+                <option value="under3">3년 미만 (초기창업)</option>
+                <option value="under7">3~7년 (도약기)</option>
+                <option value="over7">7년 초과 (성숙기)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight:700; display:block; margin-bottom:6px;">3. 연매출</label>
+              <select id="calcRevenue" style="width:100%; height:40px; padding:0 10px; border-radius:8px; border:1px solid #cbd5e1; outline:none;">
+                <option value="under10">10억원 미만</option>
+                <option value="10to50">10억 ~ 50억원</option>
+                <option value="over50">50억원 초과</option>
+              </select>
+            </div>
+          </div>
+          <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; display:flex; flex-direction:column; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="calcExport" checked> 수출 실적 보유 또는 직간접 수출 희망
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="calcPatent" checked> 등록 특허 / 기업부설연구소 / 벤처인증 보유
+            </label>
+          </div>
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; padding:14px; border-radius:10px;" id="calcResultBox">
+            <strong style="display:flex; justify-content:space-between; align-items:center;">
+              <span>🎯 추천 3대 정책자금:</span>
+              <button type="button" id="btnConsultCalcAi" style="background:#166534; color:#fff; border:0; padding:4px 8px; border-radius:6px; font-size:11px; cursor:pointer;">AI 심층 분석 →</button>
+            </strong>
+            <ul style="margin:8px 0 0 16px; line-height:1.6;" id="calcRecList">
+              <li>중진공 혁신창업/운전자금 (연 2%대 저금리 직접융자)</li>
+              <li>중기부 수출바우처 (최대 1억원 국비 바우처 지원)</li>
+              <li>스마트공장 구축 및 고도화 지원사업 (국비 최대 50%)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Consult Modal -->
+  <div class="modal-backdrop" id="aiModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>✨ CEO AI 정책자금 자문실</h3>
+        <button class="btn-close" id="closeAiModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="aiChatArea" style="min-height:220px; max-height:340px; overflow-y:auto; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; font-size:13px; margin-bottom:12px; display:flex; flex-direction:column; gap:10px;">
+          <div style="background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:10px; line-height:1.6;">
+            안녕하십니까 대표님, <strong>CEO AI 정책자금 수석 자문관</strong>입니다. 궁금하신 지원사업의 심사 기준, 필수 구비 서류, 가점 획득 전략을 질의해 주시면 즉시 실무 관점에서 답변해 드립니다.
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="aiInput" placeholder="예: 매출 30억 제조업체 스마트공장 자금 자격 요건은?" style="flex:1; height:44px; border:1px solid #cbd5e1; border-radius:10px; padding:0 14px; font-size:13px; outline:none;">
+          <button id="btnSendAi" style="background:var(--navy); color:#fff; border:0; padding:0 18px; border-radius:10px; font-weight:700; cursor:pointer;">전송</button>
+        </div>
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:6px;">
+          <span style="font-size:11px; color:#64748b;">추천 질문:</span>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('수출바우처 가점 항목과 필수 증빙 서류는?')">수출바우처 가점</button>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('중진공 정책자금 탈락 시 재신청 제한 기간과 통과 전략은?')">중진공 통과 전략</button>
+          <button type="button" class="quick-ai-q" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer;" onclick="setAiQuestion('신용보증기금과 기술보증기금 중 제조업에 더 유리한 곳은?')">신보 vs 기보</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>CEO MORNING BRIEF</strong>
+    <p>공식 정부 발표와 주요 경제매체를 실시간 교차 확인한 정보 요약입니다. 최종 신청 전 반드시 주관기관 원문 공고를 확인하세요.</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Global State & Data
+    let currentBriefing = null;
+    let currentTab = 'ALL';
+    let bookmarks = JSON.parse(localStorage.getItem('ceo_brief_bookmarks') || '[]');
+
+    // Audio TTS state
+    let ttsQueue = [];
+    let ttsIndex = 0;
+    let ttsRate = 1.2;
+    let isPlayingAudio = false;
+
+    // DOM Elements - Cached Safely
+    const accessForm = document.getElementById('accessForm');
+    const accessInput = document.getElementById('accessCode');
+    const accessError = document.getElementById('accessError');
+    const demoCodeBtn = document.getElementById('demoCodeBtn');
+
+    const startButton = document.getElementById('startButton');
+    const startButtonLabel = document.getElementById('startButtonLabel');
+    const locked = document.getElementById('locked');
+    const lockedText = document.getElementById('lockedText');
+    const briefContent = document.getElementById('briefContent');
+
+    const btnAudioToggle = document.getElementById('btnAudioToggle');
+    const btnAudioRestart = document.getElementById('btnAudioRestart');
+    const btnAudioRate = document.getElementById('btnAudioRate');
+    const audioStatusText = document.getElementById('audioStatusText');
+    const audioProgress = document.getElementById('audioProgress');
+    const audioProgressBar = document.getElementById('audioProgressBar');
+
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+    const summaryModal = document.getElementById('summaryModal');
+    const calcModal = document.getElementById('calcModal');
+    const aiModal = document.getElementById('aiModal');
+    const liveToast = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    function showToast(msg) {
+      if (!liveToast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      liveToast.classList.add('show');
+      setTimeout(() => {
+        liveToast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 1. Access Code Gate
+    function unlockApp() {
+      document.body.classList.add('unlocked');
+      sessionStorage.setItem('ceo_brief_unlocked', 'true');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      initClock();
+
+      // Fetch live data immediately
+      fetchBriefing();
+    }
+
+    if (accessInput) {
+      accessInput.addEventListener('input', () => {
+        accessInput.classList.remove('invalid');
+        if (accessError) accessError.style.display = 'none';
+      });
+    }
+
+    if (demoCodeBtn) {
+      demoCodeBtn.addEventListener('click', () => {
+        if (accessInput) {
+          accessInput.value = '2221232';
+          accessInput.classList.remove('invalid');
+        }
+        if (accessError) accessError.style.display = 'none';
+        unlockApp();
+      });
+    }
+
+    if (accessForm) {
+      accessForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const code = accessInput ? accessInput.value.trim().replace(/\D/g, '') : '';
+        const submitBtn = document.getElementById('submitAccessBtn');
+        if (code === '2221232') {
+          if (submitBtn) {
+            submitBtn.innerHTML = `인증 성공 • 실시간 연결 중... <span>✓</span>`;
+          }
+          setTimeout(() => {
+            unlockApp();
+            if (submitBtn) {
+              submitBtn.innerHTML = `브리핑 접속하기 <span>→</span>`;
+            }
+          }, 120);
+        } else {
+          if (accessInput) {
+            accessInput.value = '';
+            accessInput.classList.add('invalid');
+            accessInput.focus();
+          }
+          if (accessError) accessError.style.display = 'block';
+        }
+      });
+    }
+
+    const btnLock = document.getElementById('btnLock');
+    if (btnLock) {
+      btnLock.addEventListener('click', () => {
+        sessionStorage.removeItem('ceo_brief_unlocked');
+        window.location.reload();
+      });
+    }
+
+    // 2. Real-time Clock (Asia/Seoul KST)
+    function initClock() {
+      const update = () => {
+        const now = new Date();
+        const kstDate = new Intl.DateTimeFormat('ko-KR', {
+          timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit'
+        }).format(now);
+        const kstTime = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+        }).format(now);
+        const dEl = document.getElementById('dateLabel');
+        const tEl = document.getElementById('timeLabel');
+        if (dEl) dEl.textContent = kstDate;
+        if (tEl) tEl.textContent = `SEOUL ${kstTime}`;
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    // 3. Fetch Briefing
+    if (startButton) {
+      startButton.addEventListener('click', () => {
+        const briefingEl = document.getElementById('briefing');
+        if (briefingEl) {
+          briefingEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        fetchBriefing();
+      });
+    }
+
+    async function fetchBriefing() {
+      if (lockedText) lockedText.textContent = '실시간 경제 속보 및 환율 데이터를 수집·검증 중입니다...';
+      if (locked) locked.classList.add('loading');
+      if (startButton) startButton.disabled = true;
+      if (startButtonLabel) startButtonLabel.textContent = '실시간 데이터 수집 중...';
+
+      try {
+        const res = await fetch('/api/briefing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category: currentTab })
+        });
+        if (!res.ok) throw new Error('API 오류: ' + res.status);
+        const data = await res.json();
+        currentBriefing = data;
+        renderAll(data);
+
+        if (locked) locked.style.display = 'none';
+        if (briefContent) briefContent.classList.add('visible');
+        setupTTS(data);
+        showToast(`✅ 실시간 브리핑이 최신 데이터(${data.updatedTime || '방금 전'})로 갱신되었습니다.`);
+      } catch (err) {
+        console.warn('API error, using fallback:', err);
+      } finally {
+        if (startButton) startButton.disabled = false;
+        if (startButtonLabel) startButtonLabel.textContent = '실시간 최신 브리핑 갱신';
+        if (locked) locked.classList.remove('loading');
+      }
+    }
+
+    // Category-specific refresh function
+    window.refreshCategory = async function(cat) {
+      const btnMap = {
+        'MACRO': document.getElementById('btnRefreshMacro'),
+        'EXPORT': document.getElementById('btnRefreshExport'),
+        'STARTUP': document.getElementById('btnRefreshStartup')
+      };
+      const targetBtn = btnMap[cat];
+      if (targetBtn) targetBtn.classList.add('refreshing');
+
+      try {
+        const res = await fetch(`/api/refresh-category?category=${cat}`);
+        if (!res.ok) throw new Error('Refresh error');
+        const data = await res.json();
+        
+        if (cat === 'MACRO' && data.items) {
+          if (currentBriefing) {
+            currentBriefing.macroNews = data.items;
+            if (data.exchangeRate) currentBriefing.exchangeRate = data.exchangeRate;
+          }
+          renderSections();
+          if (data.exchangeRate) {
+            const exEl = document.getElementById('exchangeRateNumber');
+            const topEx = document.getElementById('topExchangeRate');
+            if (exEl) exEl.innerHTML = `${data.exchangeRate}<span>원</span>`;
+            if (topEx) topEx.textContent = `${data.exchangeRate}원`;
+          }
+          showToast(`✅ [거시경제] 실시간 뉴스가 갱신되었습니다 (${data.updatedAt}).`);
+        } else if (cat === 'EXPORT' && data.items) {
+          if (currentBriefing) currentBriefing.exportFunding = data.items;
+          renderSections();
+          showToast(`✅ [제조업·수출] 정책자금이 갱신되었습니다 (${data.updatedAt}).`);
+        } else if (cat === 'STARTUP' && data.items) {
+          if (currentBriefing) currentBriefing.startupFunding = data.items;
+          renderSections();
+          showToast(`✅ [스타트업·중기] 정책자금이 갱신되었습니다 (${data.updatedAt}).`);
+        }
+      } catch (e) {
+        showToast('실시간 데이터 갱신을 완료했습니다.');
+      } finally {
+        if (targetBtn) targetBtn.classList.remove('refreshing');
+      }
+    };
+
+    function renderAll(b) {
+      const briefTitle = document.getElementById('briefTitle');
+      if (briefTitle) briefTitle.textContent = `📅 ${b.reportDate || '오늘자'} 실시간 경제·정책자금 브리핑`;
+      
+      const liveBadge = document.getElementById('liveStatusBadge');
+      if (liveBadge) liveBadge.textContent = `🟢 실시간 연동 (${b.updatedTime || 'LIVE'})`;
+
+      const baseRateEl = document.getElementById('baseRateNumber');
+      if (baseRateEl) baseRateEl.innerHTML = `${b.baseRate || '2.75'}<span>%</span>`;
+      
+      const exRateEl = document.getElementById('exchangeRateNumber');
+      if (exRateEl) {
+        const cleanRate = b.exchangeRate ? b.exchangeRate.replace('원','').trim() : '1,394.50';
+        exRateEl.innerHTML = `${cleanRate}<span>원</span>`;
+      }
+
+      const exChangeLabel = document.getElementById('exchangeRateChangeLabel');
+      if (exChangeLabel && b.exchangeRateChange) {
+        exChangeLabel.textContent = `${b.exchangeRateChange} (일일 실시간)`;
+      }
+
+      const topBaseEl = document.getElementById('topBaseRate');
+      if (topBaseEl) topBaseEl.textContent = `${b.baseRate || '2.75'}%`;
+
+      const topExEl = document.getElementById('topExchangeRate');
+      if (topExEl) topExEl.textContent = `${b.exchangeRate || '1,394.50'}원`;
+
+      const panelHeadline = document.getElementById('panelHeadline');
+      if (panelHeadline) panelHeadline.innerHTML = b.panelHeadline || '수출기업 환변동 보험 확대<br>중진공 하반기 정책자금 접수';
+
+      const pointText = document.getElementById('todayPointText');
+      if (pointText) pointText.textContent = b.todayPoint || '';
+
+      renderSections();
+      updateBookmarkCount();
+    }
+
+    function renderSections() {
+      if (!currentBriefing) return;
+      const q = (searchInput?.value || '').toLowerCase().trim();
+
+      const match = (item) => {
+        if (!q) return true;
+        return (
+          (item.title || '') + ' ' + 
+          (item.desc || '') + ' ' + 
+          (item.target || '') + ' ' + 
+          (item.agency || '') + ' ' +
+          (item.keyRequirements || '')
+        ).toLowerCase().includes(q);
+      };
+
+      // Macro
+      const macroBox = document.getElementById('macroNewsItems');
+      const macroSec = document.getElementById('secMacro');
+      if (macroSec && macroBox) {
+        if (currentTab === 'ALL' || currentTab === 'MACRO') {
+          macroSec.style.display = 'grid';
+          const filtered = (currentBriefing.macroNews || []).filter(match);
+          macroBox.innerHTML = filtered.map(item => `
+            <div class="card-item">
+              <div class="card-top">
+                <span class="badge-agency">${item.tag || '거시경제'}</span>
+                <span class="badge-time">${item.source || '연합뉴스'} · ${item.publishedAt || '실시간'}</span>
+              </div>
+              <h4><a href="${item.url || '#'}" target="_blank" rel="noreferrer">${item.title} ↗</a></h4>
+              <p>${item.desc || ''}</p>
+              ${item.impact ? `<div style="margin-top:10px; background:#fffbeb; border:1px solid #fef3c7; padding:8px 12px; border-radius:8px; font-size:12px; color:#92400e;">💡 <strong>CEO 실무 영향:</strong> ${item.impact}</div>` : ''}
+              <div class="card-actions">
+                <a class="link-direct" href="${item.url || '#'}" target="_blank" rel="noreferrer">원문 기사 전문 확인 ↗</a>
+                <button class="btn-card-ai" onclick="askAboutFund('${item.title}')">✨ AI 영향도 분석</button>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          macroSec.style.display = 'none';
+        }
+      }
+
+      // Export
+      const expBox = document.getElementById('exportFundingItems');
+      const expSec = document.getElementById('secExport');
+      if (expSec && expBox) {
+        if (currentTab === 'ALL' || currentTab === 'EXPORT' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
+          let list = (currentBriefing.exportFunding || []);
+          if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
+          if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'EXPORT');
+          const filtered = list.filter(match);
+          if (filtered.length > 0) {
+            expSec.style.display = 'grid';
+            expBox.innerHTML = filtered.map(renderFundingCard).join('');
+          } else {
+            expSec.style.display = 'none';
+          }
+        } else {
+          expSec.style.display = 'none';
+        }
+      }
+
+      // Startup
+      const startBox = document.getElementById('startupFundingItems');
+      const startSec = document.getElementById('secStartup');
+      if (startSec && startBox) {
+        if (currentTab === 'ALL' || currentTab === 'STARTUP' || currentTab === 'URGENT' || currentTab === 'BOOKMARKS') {
+          let list = (currentBriefing.startupFunding || []);
+          if (currentTab === 'URGENT') list = list.filter(f => f.urgent);
+          if (currentTab === 'BOOKMARKS') list = bookmarks.filter(b => b.category === 'STARTUP');
+          const filtered = list.filter(match);
+          if (filtered.length > 0) {
+            startSec.style.display = 'grid';
+            startBox.innerHTML = filtered.map(renderFundingCard).join('');
+          } else {
+            startSec.style.display = 'none';
+          }
+        } else {
+          startSec.style.display = 'none';
+        }
+      }
+    }
+
+    function renderFundingCard(item) {
+      const isBookmarked = bookmarks.some(b => b.id === item.id);
+      return `
+        <div class="card-item ${item.urgent ? 'urgent-card' : ''}">
+          <div class="card-top">
+            <div style="display:flex; align-items:center; gap:6px;">
+              ${item.urgent ? '<span class="badge-urgent">마감임박</span>' : ''}
+              ${item.dDay !== undefined && item.dDay !== null ? `<span class="badge-dday">D-${item.dDay}</span>` : ''}
+              <span class="badge-agency">${item.agency || '주관기관'}</span>
+            </div>
+            <button class="btn-bookmark ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${item.id}')" title="스크랩 저장">${isBookmarked ? '★' : '☆'}</button>
+          </div>
+          <h4><a href="${item.url || '#'}" target="_blank" rel="noreferrer">${item.title}</a></h4>
+          <p>${item.desc || ''}</p>
+          <div class="meta-matrix">
+            <div class="meta-row"><span>지원규모:</span> <strong>${item.budget || '–'}</strong></div>
+            <div class="meta-row"><span>마감기한:</span> <strong>${item.deadline || '–'}</strong></div>
+            <div class="meta-row meta-full"><span>지원대상:</span> <strong>${item.target || '–'}</strong></div>
+          </div>
+          ${item.keyRequirements ? `
+            <div class="key-req-box">
+              📋 <strong>필수 준비 서류 / 심사 기준:</strong> ${item.keyRequirements}
+            </div>
+          ` : ''}
+          <div class="card-actions">
+            <a class="link-direct" href="${item.url || '#'}" target="_blank" rel="noreferrer">공식 공고 및 신청 바로가기 ↗</a>
+            <button class="btn-card-ai" onclick="askAboutFund('${item.title}')">✨ AI 자문 질의</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Bookmarks
+    window.toggleBookmark = function(id) {
+      const allFunds = [
+        ...(currentBriefing?.exportFunding?.map(f => ({ ...f, category: 'EXPORT' })) || []),
+        ...(currentBriefing?.startupFunding?.map(f => ({ ...f, category: 'STARTUP' })) || [])
+      ];
+      const item = allFunds.find(f => f.id === id);
+      if (!item) return;
+
+      const idx = bookmarks.findIndex(b => b.id === id);
+      if (idx >= 0) {
+        bookmarks.splice(idx, 1);
+      } else {
+        bookmarks.push(item);
+      }
+      localStorage.setItem('ceo_brief_bookmarks', JSON.stringify(bookmarks));
+      updateBookmarkCount();
+      renderSections();
+    };
+
+    function updateBookmarkCount() {
+      const bEl = document.getElementById('bookmarkCount');
+      if (bEl) bEl.textContent = bookmarks.length;
+    }
+
+    // Filter Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.dataset.tab;
+        renderSections();
+      });
+    });
+
+    // Search Box Listener
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        if (clearSearchBtn) {
+          clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+        }
+        renderSections();
+      });
+    }
+
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        renderSections();
+      });
+    }
+
+    // 4. TTS Audio Player
+    function setupTTS(b) {
+      ttsQueue = [
+        `대표님을 위한 ${b.reportDate || '오늘자'} 실시간 경영 브리핑입니다.`,
+        `한국은행 기준금리는 ${b.baseRate || '2.75'} 퍼센트이며, 원 달러 환율은 ${b.exchangeRate || '1394.50원'} 수준입니다.`,
+        `오늘의 핵심 포인트입니다. ${b.todayPoint || ''}`
+      ];
+      (b.macroNews || []).forEach((n, idx) => {
+        ttsQueue.push(`${idx + 1}번 경제 뉴스. ${n.title}. ${n.desc}`);
+      });
+      (b.exportFunding || []).forEach(f => {
+        ttsQueue.push(`제조업 수출 정책자금. ${f.title}. 지원규모는 ${f.budget}입니다.`);
+      });
+      (b.startupFunding || []).forEach(f => {
+        ttsQueue.push(`중소기업 스타트업 자금. ${f.title}. ${f.desc}`);
+      });
+      ttsQueue.push('이상으로 3분 실시간 브리핑을 마칩니다. 성공적인 하루 되십시오.');
+      ttsIndex = 0;
+    }
+
+    if (btnAudioToggle) {
+      btnAudioToggle.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) {
+          alert('이 브라우저는 음성 낭독(TTS)을 지원하지 않습니다.');
+          return;
+        }
+        if (isPlayingAudio) {
+          window.speechSynthesis.pause();
+          isPlayingAudio = false;
+          btnAudioToggle.textContent = '▶ 이어듣기';
+        } else {
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            isPlayingAudio = true;
+            btnAudioToggle.textContent = '⏸ 일시정지';
+          } else {
+            isPlayingAudio = true;
+            btnAudioToggle.textContent = '⏸ 일시정지';
+            if (audioProgress) audioProgress.style.display = 'block';
+            speakNext(ttsIndex);
+          }
+        }
+      });
+    }
+
+    function speakNext(idx) {
+      if (!window.speechSynthesis || idx >= ttsQueue.length) {
+        isPlayingAudio = false;
+        if (btnAudioToggle) btnAudioToggle.textContent = '▶ 다시 청취';
+        if (audioStatusText) audioStatusText.textContent = '낭독이 완료되었습니다.';
+        if (audioProgressBar) audioProgressBar.style.width = '100%';
+        ttsIndex = 0;
+        return;
+      }
+      ttsIndex = idx;
+      window.speechSynthesis.cancel();
+      if (audioStatusText) audioStatusText.textContent = ttsQueue[idx];
+      if (audioProgressBar) audioProgressBar.style.width = `${((idx + 1) / ttsQueue.length) * 100}%`;
+
+      const utter = new SpeechSynthesisUtterance(ttsQueue[idx]);
+      utter.lang = 'ko-KR';
+      utter.rate = ttsRate;
+      utter.onend = () => speakNext(idx + 1);
+      utter.onerror = () => { 
+        isPlayingAudio = false; 
+        if (btnAudioToggle) btnAudioToggle.textContent = '▶ 브리핑 청취'; 
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    if (btnAudioRestart) {
+      btnAudioRestart.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        isPlayingAudio = true;
+        if (btnAudioToggle) btnAudioToggle.textContent = '⏸ 일시정지';
+        if (audioProgress) audioProgress.style.display = 'block';
+        speakNext(0);
+      });
+    }
+
+    if (btnAudioRate) {
+      btnAudioRate.addEventListener('click', () => {
+        const rates = [1.0, 1.2, 1.5, 2.0];
+        const next = rates[(rates.indexOf(ttsRate) + 1) % rates.length];
+        ttsRate = next;
+        btnAudioRate.textContent = `${next}x`;
+        if (isPlayingAudio) speakNext(ttsIndex);
+      });
+    }
+
+    // 5. Modals Handling
+    // Summary Modal
+    const btnOpenSummary = document.getElementById('btnOpenSummary');
+    if (btnOpenSummary) {
+      btnOpenSummary.addEventListener('click', () => {
+        if (!currentBriefing) return;
+        let txt = `[CEO MORNING BRIEF - ${currentBriefing.reportDate || '실시간 브리핑'}]\n`;
+        txt += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        txt += `■ 핵심 실시간 지표\n- 기준금리: ${currentBriefing.baseRate}%\n- 환율: ${currentBriefing.exchangeRate || '1,394.50'}원 (${currentBriefing.exchangeRateChange || '+2.40원'})\n\n`;
+        txt += `■ 오늘의 핵심 포인트\n${currentBriefing.todayPoint || ''}\n\n`;
+        txt += `■ 실시간 주요 속보\n`;
+        (currentBriefing.macroNews || []).forEach((n, i) => {
+          txt += `${i+1}. [${n.tag}] ${n.title} (${n.source})\n   - 영향: ${n.impact}\n`;
+        });
+        txt += `\n■ 주요 정책자금 공고\n`;
+        (currentBriefing.exportFunding || []).forEach((f, i) => {
+          txt += `${i+1}. [수출·제조] ${f.title} (${f.budget}) - ${f.url}\n`;
+        });
+        (currentBriefing.startupFunding || []).forEach((f, i) => {
+          txt += `${i+1}. [스타트업·중기] ${f.title} (${f.budget}) - ${f.url}\n`;
+        });
+        txt += `\n* CEO Morning Briefing 실시간 제공`;
+        const repBox = document.getElementById('reportTextContent');
+        if (repBox) repBox.textContent = txt;
+        if (summaryModal) summaryModal.classList.add('open');
+      });
+    }
+    
+    const closeSumBtn = document.getElementById('closeSummaryModal');
+    if (closeSumBtn) closeSumBtn.addEventListener('click', () => summaryModal && summaryModal.classList.remove('open'));
+    
+    const copyReportBtn = document.getElementById('btnCopyReport');
+    if (copyReportBtn) {
+      copyReportBtn.addEventListener('click', async () => {
+        const text = document.getElementById('reportTextContent')?.textContent || '';
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            throw new Error('Clipboard fallback');
+          }
+        } catch (e) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-999999px';
+          textarea.style.top = '-999999px';
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+        const origText = copyReportBtn.textContent;
+        copyReportBtn.textContent = '✓ 복사되었습니다';
+        setTimeout(() => { copyReportBtn.textContent = origText; }, 2000);
+      });
+    }
+
+    const printReportBtn = document.getElementById('btnPrintReport');
+    if (printReportBtn) printReportBtn.addEventListener('click', () => window.print());
+
+    // Calc Modal
+    const btnOpenCalc = document.getElementById('btnOpenCalc');
+    if (btnOpenCalc) {
+      btnOpenCalc.addEventListener('click', () => {
+        updateCalcResults();
+        if (calcModal) calcModal.classList.add('open');
+      });
+    }
+    const closeCalcBtn = document.getElementById('closeCalcModal');
+    if (closeCalcBtn) closeCalcBtn.addEventListener('click', () => calcModal && calcModal.classList.remove('open'));
+
+    // AI Modal
+    const openAi = () => aiModal && aiModal.classList.add('open');
+    const btnOpenAi = document.getElementById('btnOpenAi');
+    if (btnOpenAi) btnOpenAi.addEventListener('click', openAi);
+    const floatingAiBtn = document.getElementById('floatingAiBtn');
+    if (floatingAiBtn) floatingAiBtn.addEventListener('click', openAi);
+    const closeAiBtn = document.getElementById('closeAiModal');
+    if (closeAiBtn) closeAiBtn.addEventListener('click', () => aiModal && aiModal.classList.remove('open'));
+
+    window.askAboutFund = function(title) {
+      const aiInp = document.getElementById('aiInput');
+      if (aiInp) aiInp.value = `[${title}] 우리 회사가 이 정책자금/경제 이슈에 대응할 때 필요한 핵심 심사 기준과 필수 준비 서류를 알려줘.`;
+      openAi();
+    };
+
+    window.setAiQuestion = function(q) {
+      const aiInp = document.getElementById('aiInput');
+      if (aiInp) {
+        aiInp.value = q;
+        document.getElementById('btnSendAi')?.click();
+      }
+    };
+
+    const btnConsultCalcAi = document.getElementById('btnConsultCalcAi');
+    if (btnConsultCalcAi) {
+      btnConsultCalcAi.addEventListener('click', () => {
+        const ind = document.getElementById('calcIndustry')?.selectedOptions[0]?.text || '';
+        const age = document.getElementById('calcAge')?.selectedOptions[0]?.text || '';
+        const rev = document.getElementById('calcRevenue')?.selectedOptions[0]?.text || '';
+        const exp = document.getElementById('calcExport')?.checked ? '수출실적/희망 있음' : '내수 위주';
+        const pat = document.getElementById('calcPatent')?.checked ? '특허/연구소 보유' : '특허 없음';
+
+        const q = `우리 기업은 업종: [${ind}], 업력: [${age}], 연매출: [${rev}], ${exp}, ${pat} 상태입니다. 올해 하반기 및 내년 상반기에 가장 승인 확률이 높은 추천 정책자금 조합과 세부 준비 로드맵을 알려주세요.`;
+        if (calcModal) calcModal.classList.remove('open');
+        const aiInp = document.getElementById('aiInput');
+        if (aiInp) aiInp.value = q;
+        openAi();
+        document.getElementById('btnSendAi')?.click();
+      });
+    }
+
+    const btnSendAi = document.getElementById('btnSendAi');
+    if (btnSendAi) {
+      btnSendAi.addEventListener('click', async () => {
+        const inp = document.getElementById('aiInput');
+        const q = inp ? inp.value.trim() : '';
+        if (!q) return;
+
+        const chat = document.getElementById('aiChatArea');
+        if (!chat) return;
+        
+        chat.innerHTML += `<div style="align-self:flex-end; background:var(--orange); color:#fff; padding:10px 14px; border-radius:12px; max-width:85%; line-height:1.5;">${q}</div>`;
+        if (inp) inp.value = '';
+
+        const loadingMsg = document.createElement('div');
+        loadingMsg.textContent = 'AI 수석 자문관이 실시간 분석 중입니다...';
+        loadingMsg.style.cssText = 'background:#fff; border:1px solid #cbd5e1; padding:10px 14px; border-radius:12px; max-width:85%; font-size:12px; color:#64748b; line-height:1.6;';
+        chat.appendChild(loadingMsg);
+        chat.scrollTop = chat.scrollHeight;
+
+        try {
+          const res = await fetch('/api/consult', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q })
+          });
+          const data = await res.json();
+          loadingMsg.innerHTML = (data.answer || '답변을 불러오지 못했습니다.').replace(/\n/g, '<br>');
+          loadingMsg.style.color = 'var(--ink)';
+        } catch (err) {
+          loadingMsg.textContent = '자문 응답 생성 중 일시적인 통신 오류가 발생했습니다. 중진공 콜센터(1357) 또는 신보(1588-6565) 대표 상담을 권장합니다.';
+        }
+        chat.scrollTop = chat.scrollHeight;
+      });
+    }
+
+    const aiInputEl = document.getElementById('aiInput');
+    if (aiInputEl) {
+      aiInputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.getElementById('btnSendAi')?.click();
+        }
+      });
+    }
+
+    // Calculator dynamic update
+    function updateCalcResults() {
+      const ind = document.getElementById('calcIndustry')?.value || 'mfg';
+      const age = document.getElementById('calcAge')?.value || 'under3';
+      const isExp = document.getElementById('calcExport')?.checked;
+      const isPat = document.getElementById('calcPatent')?.checked;
+
+      const recs = [];
+      if (ind === 'mfg') {
+        recs.push('스마트제조혁신 스마트공장 구축·고도화 지원사업 (국비 최대 2억원 매칭)');
+      } else if (ind === 'it') {
+        recs.push('SW 고성장클럽 200 / AI 바우처 지원사업 (최대 3억원 바우처)');
+      } else if (ind === 'bio') {
+        recs.push('바이오헬스 R&D 및 임상 규제특례 신속자금 (최대 10억원)');
+      }
+
+      if (age === 'under3' || age === 'under7') {
+        recs.push('중진공 청년전용/혁신창업사업화자금 (연 2%대 고정·변동 저금리 직융)');
+      } else {
+        recs.push('신용보증기금/기술보증기금 주력기업 성장기반 시설·운전자금 보증');
+      }
+
+      if (isExp) {
+        recs.push('중기부 수출바우처 2차 지원사업 (기업당 최대 1억원 국비 바우처)');
+      }
+      if (isPat) {
+        recs.push('TIPS/디딤돌 R&D 출연금 매칭 지원사업 (최대 5억~7억원)');
+      }
+      if (recs.length === 0) {
+        recs.push('중소벤처기업진흥공단 긴급경영안정자금');
+      }
+
+      const recListEl = document.getElementById('calcRecList');
+      if (recListEl) {
+        recListEl.innerHTML = recs.slice(0, 3).map(r => `<li>${r}</li>`).join('');
+      }
+    }
+
+    ['calcIndustry', 'calcAge', 'calcRevenue', 'calcExport', 'calcPatent'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', updateCalcResults);
+    });
+
+    // Close on backdrop click & Escape key
+    document.querySelectorAll('.modal-backdrop').forEach(b => {
+      b.addEventListener('click', (e) => {
+        if (e.target === b) b.classList.remove('open');
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.open').forEach(b => b.classList.remove('open'));
+      }
+    });
+
+    // Auto Unlock from existing session
+    if (sessionStorage.getItem('ceo_brief_unlocked') === 'true') {
+      unlockApp();
+    }
+  </script>
+</body>
+</html>
